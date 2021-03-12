@@ -1,21 +1,22 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const HomeScreenCard = ({ show }) => {
   return (
     <Card className='my-3 p-3 rounded'>
-      <a href='/'>
+      <Link to={`/movie/${show._id}`}>
         <Card.Img src={show.image} variant='top' />
-      </a>
+      </Link>
 
       <Card.Body>
-        <a href='/'>
+        <Link to={`/movie/${show._id}`}>
           <Card.Title as='div'>
             <h5>
               <strong>{show.originalTitle}</strong>
             </h5>
           </Card.Title>
-        </a>
+        </Link>
 
         {/* <Card.Text as='div'>
           <div className='my-3'>{show.originalTitle}</div>
