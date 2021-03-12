@@ -1,5 +1,6 @@
-const products = [
+const shows = [
   {
+    _id: 1,
     originalTitle: 'Titanic',
     image:
       'https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png',
@@ -16,6 +17,7 @@ const products = [
     dateOfRelease: '18 November 1997',
   },
   {
+    _id: 2,
     originalTitle: 'Demon Slayer: Kimetsu no Yaiba the Movie: Mugen Train',
     image:
       'https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Kimetsu_no_Yaiba_Mugen_Ressha_Hen_Poster.jpg/220px-Kimetsu_no_Yaiba_Mugen_Ressha_Hen_Poster.jpg',
@@ -33,4 +35,4 @@ const products = [
   },
 ]
 
-export default products
+export default shows

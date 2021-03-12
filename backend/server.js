@@ -16,6 +16,12 @@ app.get('/shows', (req, res) => {
   res.send(data)
 })
 
+app.get('/movie/:id', (req, res) => {
+  const id = req.params.id
+  console.log(id)
+  const d = data.find((show) => show._id === Number(id))
+})
+
 // app.get('/shows/genre', (req, res) => {
 //   //   const param = req.params.genre
 //   //   console.log(param)
