@@ -8,7 +8,6 @@
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "test": "echo \"Error: no test specified\" && exit 1"
-    
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,7 @@
   },
   "homepage": "https://github.com/manRexx/revTaku#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "nodemon": "^2.0.7"
-  }
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
 }

@@ -1,4 +1,8 @@
+// To start server nodemon backend/server
 import express from 'express'
+const PORT = process.env.PORT || 5000
+
+import data from './data.js'
 
 const app = express()
 
@@ -8,7 +12,9 @@ app.get('/', (req, res) => {
   res.send('Server is running')
 })
 
-const PORT = process.env.PORT || 5000
+app.get('/shows', (req, res) => {
+  res.send(data)
+})
 
 app.listen(
   PORT,
