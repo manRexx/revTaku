@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 const HomeScreenCard = ({ show }) => {
   return (
     <Card className='my-3 p-3 rounded'>
-      <Link to={`/movie/${show._id}`}>
+      <Link to={`/show-info/${show._id}`}>
         <Card.Img src={show.image} variant='top' />
       </Link>
 
       <Card.Body>
-        <Link to={`/movie/${show._id}`}>
+        <Link to={`/show-info/${show._id}`}>
           <Card.Title as='div'>
             <h5>
               <strong>{show.originalTitle}</strong>
