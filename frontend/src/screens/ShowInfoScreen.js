@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Row, Col, Button, Badge } from 'react-bootstrap'
+import { Image, Row, Col, Button, Badge, Jumbotron } from 'react-bootstrap'
 import { Link } from 'react-router-bootstrap'
 
 const ShowInfoScreen = () => {
@@ -49,19 +49,47 @@ const ShowInfoScreen = () => {
               )}
             </center>
           </div>
+          <div>
+            <center>
+              <h5>
+                {' '}
+                <strong>Released at: {data.dateOfRelease}</strong>
+              </h5>
+              <h5>
+                {' '}
+                <strong>Is Adult: {data.isAdult ? 'true' : 'false'}</strong>
+              </h5>
+              <h5>
+                {' '}
+                <strong>Languages: {data.language.map((lan) => lan)}</strong>
+              </h5>
+            </center>
+          </div>
         </Col>
-        <Col className='m-auto'>
-          <Row className='m-auto'>
-            <p>{data.description}</p>
-          </Row>
-          <Row className='m-auto'>
-            <a href={data.trailerLink} target='blank'>
-              {' '}
-              <Button variant='danger' size='lg' className='rounded'>
-                View Trailer on Youtube
-              </Button>
-            </a>
-          </Row>
+        <Col>
+          <Jumbotron>
+            <Row className='m-auto p-3'>
+              {data.genre.map((genre) => (
+                <Button>{genre}</Button>
+              ))}
+            </Row>
+            <Row className='m-auto p-3'>
+              <p>
+                {data.description}
+                {data.description}
+                {data.description}
+                {data.description}
+              </p>
+            </Row>{' '}
+            <Row className='m-auto p-3'>
+              <a href={data.trailerLink} target='blank'>
+                {' '}
+                <Button variant='danger' size='lg' className='rounded'>
+                  View Trailer on Youtube
+                </Button>
+              </a>
+            </Row>
+          </Jumbotron>
         </Col>
       </Row>
     </div>
