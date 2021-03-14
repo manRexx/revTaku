@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom'
 const HomeScreen = () => {
   return (
     <>
-      <h3>HomeScreen</h3>
       <Jumbotron className='rounded'>
         <h1>Rev-Taku</h1>
         <p>Place for reviewing your favourite shows, series and movies.</p>
         <p>
           <Link to='/about'>
-            <Button variant='primary'>Learn more</Button>
+            <Button variant='primary' className='rounded'>
+              Learn more
+            </Button>
           </Link>
         </p>
       </Jumbotron>

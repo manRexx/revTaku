@@ -8,6 +8,7 @@ import MovieScreen from './screens/MovieScreen'
 import SeriesScreen from './screens/SeriesScreen'
 import AnimeScreen from './screens/AnimeScreen'
 import ShowInfoScreen from './screens/ShowInfoScreen'
+import AboutScreen from './screens/AboutScreen'
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
             <Route path='/' component={HomeScreen} exact />
             <Route path='/movies' component={MovieScreen} />
             <Route path='/series' component={SeriesScreen} />
-            <Route path='/animes' component={AnimeScreen} />{' '}
-            <Route path='/show-info/:id' component={ShowInfoScreen} />
+            <Route path='/animes' component={AnimeScreen} />
+            <Route path='/show-info/:id' component={ShowInfoScreen} />{' '}
+            <Route path='/about' component={AboutScreen} />
           </main>
         </Container>
         <Footer />

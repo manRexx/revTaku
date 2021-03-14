@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 
 const HomeScreenCard = ({ show }) => {
   return (
-    <Card className='my-3 p-3 rounded'>
+    <Card className='my-3 p-3 rounded' style={{ height: '28rem' }}>
       <Link to={`/show-info/${show._id}`}>
-        <Card.Img src={show.image} variant='top' />
+        <Card.Img src={show.image} variant='top' style={{ height: '18rem' }} />
       </Link>
 
       <Card.Body>

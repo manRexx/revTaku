@@ -23,7 +23,7 @@ const Header = () => {
 
           <div class='collapse navbar-collapse' id='navbarColor01'>
             <ul class='navbar-nav mr-auto'>
-              <li class='nav-item active'>
+              <li class='nav-item'>
                 <a class='nav-link' href='/movies'>
                   Movies
                   <span class='sr-only'>(current)</span>
