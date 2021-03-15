@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Image,
   Row,
@@ -9,9 +9,23 @@ import {
   Container,
   Alert,
 } from 'react-bootstrap'
-import { Link } from 'react-router-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { listShowDetail } from '../actions/showActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
-const ShowInfoScreen = () => {
+const ShowInfoScreen = ({ match, history }) => {
+  const id = match.params.id
+
+  const showDetail = useSelector((state) => state.showDetail)
+  const { error, loading, show } = showDetail
+  console.log(show)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(listShowDetail(id))
+  }, [dispatch])
+
   const data = {
     _id: 2,
     originalTitle: 'Demon Slayer: Kimetsu no Yaiba the Movie: Mugen Train',
@@ -83,26 +97,26 @@ const ShowInfoScreen = () => {
   return (
     <div>
       <h2 className='m-auto p-3'>
-        <strong>{data.originalTitle}</strong>
+        <strong>{show.originalTitle}</strong>
       </h2>
       <Row>
         <Col lg={4} className='m-3'>
           <center>
-            <Image src={data.image} fluid />
+            <Image src={show.image} fluid />
           </center>
           <div className='p-2'>
             <center>
-              {data.isMovie && (
+              {show.isMovie && (
                 <Badge pill variant='warning'>
                   Movie
                 </Badge>
               )}{' '}
-              {data.isSeries && (
+              {show.isSeries && (
                 <Badge pill variant='primary'>
                   Series
                 </Badge>
               )}{' '}
-              {data.isAnime && (
+              {show.isAnime && (
                 <Badge pill variant='danger'>
                   Anime
                 </Badge>
@@ -113,36 +127,35 @@ const ShowInfoScreen = () => {
             <center>
               <h5>
                 {' '}
-                <strong>Released at: {data.dateOfRelease}</strong>
+                <strong>Released at: {show.dateOfRelease}</strong>
               </h5>
               <h5>
                 {' '}
-                <strong>Is Adult: {data.isAdult ? 'true' : 'false'}</strong>
+                <strong>Is Adult: {show.isAdult ? 'true' : 'false'}</strong>
               </h5>
-              <h5>
-                {' '}
-                <strong>Languages: {data.language.map((lan) => lan)}</strong>
-              </h5>
+              <hr />
+              <h5>Available in</h5>
+              {show.language.map((lan) => (
+                <h7>{lan} </h7>
+              ))}
             </center>
           </div>
         </Col>
         <Col>
           <Jumbotron>
             <Row className='m-auto p-3'>
-              {data.genre.map((genre) => (
-                <Button>{genre}</Button>
+              {data.genre.map((gen) => (
+                <Button>{gen}</Button>
               ))}
+              <h5>
+                <strong>ERROR</strong>
+              </h5>
             </Row>
             <Row className='m-auto p-3'>
-              <p>
-                {data.description}
-                {data.description}
-                {data.description}
-                {data.description}
-              </p>
+              <p>{show.description}</p>
             </Row>{' '}
             <Row className='m-auto p-3'>
-              <a href={data.trailerLink} target='blank'>
+              <a href={show.trailerLink} target='blank'>
                 {' '}
                 <Button variant='danger' size='lg' className='rounded'>
                   View Trailer on Youtube

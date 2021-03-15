@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Row, Col, Jumbotron, Button } from 'react-bootstrap'
 import HomeScreenCard from '../components/HomeScreenCard'
-import data from '../data'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listShows } from '../actions/showActions'
