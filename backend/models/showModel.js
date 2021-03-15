@@ -53,19 +53,19 @@ const seasonInfoSchema = mongoose.Schema(
   }
 )
 
-const genreSchema = mongoose.Schema({
-  genre: {
-    type: String,
-    required: true,
-  },
-})
+// const genreSchema = mongoose.Schema({
+//   genre: {
+//     type: String,
+//     required: true,
+//   },
+// })
 
-const languageSchema = mongoose.Schema({
-  language: {
-    type: String,
-    required: true,
-  },
-})
+// const languageSchema = mongoose.Schema({
+//   language: {
+//     type: String,
+//     required: true,
+//   },
+// })
 
 const showSchema = mongoose.Schema(
   {
@@ -108,12 +108,20 @@ const showSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    genre: [genreSchema],
+    genres: [
+      {
+        type: String,
+      },
+    ],
     isAdult: {
       type: Boolean,
       required: true,
     },
-    language: [languageSchema],
+    language: [
+      {
+        type: String,
+      },
+    ],
     dateOfRelease: {
       type: String,
       required: true,
