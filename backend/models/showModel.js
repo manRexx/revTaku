@@ -1,0 +1,135 @@
+import mongoose from 'mongoose'
+
+const reviewSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
+const seasonInfoSchema = mongoose.Schema(
+  {
+    seasonNumber: {
+      type: Number,
+      required: true,
+    },
+    seasonName: {
+      type: String,
+      required: true,
+    },
+    wallpaper: {
+      type: String,
+      required: true,
+    },
+    info: {
+      type: String,
+      required: true,
+    },
+    startOfSeason: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
+const genreSchema = mongoose.Schema({
+  genre: {
+    type: String,
+    required: true,
+  },
+})
+
+const languageSchema = mongoose.Schema({
+  language: {
+    type: String,
+    required: true,
+  },
+})
+
+const showSchema = mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    originalTitle: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    isMovie: {
+      type: Boolean,
+      required: true,
+    },
+    isSeries: {
+      type: Boolean,
+      required: true,
+    },
+    isAnime: {
+      type: Boolean,
+      required: true,
+    },
+    noOfSeasons: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    seasonInfo: [seasonInfoSchema],
+    trailerLink: {
+      type: String,
+      required: true,
+    },
+    genre: [genreSchema],
+    isAdult: {
+      type: Boolean,
+      required: true,
+    },
+    language: [languageSchema],
+    dateOfRelease: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    reviews: [reviewSchema],
+  },
+  {
+    timestamps: true,
+  }
+)
+
+const Show = mongoose.model('Show', showSchema)
+
+export default Show

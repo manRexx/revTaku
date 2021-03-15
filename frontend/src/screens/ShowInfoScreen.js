@@ -29,6 +29,7 @@ const ShowInfoScreen = () => {
     isAdult: false,
     language: ['japanese'],
     dateOfRelease: '16 October 2020',
+    rating: 9.25,
     reviews: [
       {
         userId: 14,
