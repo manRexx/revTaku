@@ -81,7 +81,9 @@ const ShowInfoScreen = () => {
 
   return (
     <div>
-      <h2>{data.originalTitle}</h2>
+      <h2 className='m-auto p-3'>
+        <strong>{data.originalTitle}</strong>
+      </h2>
       <Row>
         <Col lg={4} className='m-3'>
           <center>
@@ -151,9 +153,9 @@ const ShowInfoScreen = () => {
       </Row>
       <Row className='m-auto p-3'>
         <Col>
-          <Jumbotron fluid>
+          <Jumbotron>
             <Container>
-              <h2>
+              <h2 className='m-auto p-3'>
                 <strong>Your Review</strong>
               </h2>
               <p className='m-auto p-3'>
@@ -183,7 +185,7 @@ const ShowInfoScreen = () => {
       </Row>
       <Row className='m-auto p-3'>
         <Col>
-          <Jumbotron fluid>
+          <Jumbotron variant='light'>
             <Container>
               <div className='m-auto p-3'>
                 <h1>
@@ -191,25 +193,6 @@ const ShowInfoScreen = () => {
                 </h1>
               </div>
 
-              {/* {data.reviews.map((review) => (
-                <div className='m-auto p-3'>
-                  {' '}
-                  <h4>
-                    <strong>{review.name}</strong>
-                  </h4>
-                  <div className='m-auto p-3'>
-                    <h6>
-                      Posted at: <strong>{review.createdAt}</strong>
-                    </h6>
-                    <p>{review.rev}</p>
-                    <h5>
-                      <strong> Overall rating: {review.rating}</strong>
-                      <i class='fas fa-stars'></i>
-                    </h5>
-                  </div>
-                  <hr></hr>
-                </div>
-              ))} */}
               {data.reviews.map((review) => (
                 <Alert variant='secondary'>
                   <Alert.Heading>
@@ -231,6 +214,8 @@ const ShowInfoScreen = () => {
                   </div>
                 </Alert>
               ))}
+
+              <Button>See more...</Button>
             </Container>
           </Jumbotron>
         </Col>
