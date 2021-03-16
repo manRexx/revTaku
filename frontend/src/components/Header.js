@@ -46,6 +46,16 @@ const Header = () => {
               </li>
             </ul>
           </div>
+          <div>
+            <ul class='navbar-nav mr-auto'>
+              <li class='nav-item'>
+                <a class='nav-link' href='/login'>
+                  Log-in / Sign-up
+                  <span class='sr-only'>(current)</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </Container>
       </nav>
     </>

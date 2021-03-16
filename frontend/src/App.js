@@ -9,6 +9,8 @@ import SeriesScreen from './screens/SeriesScreen'
 import AnimeScreen from './screens/AnimeScreen'
 import ShowInfoScreen from './screens/ShowInfoScreen'
 import AboutScreen from './screens/AboutScreen'
+import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Container>
           <main className='py-3'>
             <Route path='/' component={HomeScreen} exact />
+            <Route path='/login' component={LoginScreen} />
+            <Route path='/register' component={RegisterScreen} />
             <Route path='/movies' component={MovieScreen} />
             <Route path='/series' component={SeriesScreen} />
             <Route path='/animes' component={AnimeScreen} />
