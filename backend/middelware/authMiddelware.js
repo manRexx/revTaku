@@ -1,12 +1,8 @@
 import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
-import User from '../models/userModel.js'
-
-const protect = async (req, res, next) => {}
 const protect = asyncHandler(async (req, res, next) => {
   let token
-
   if (
     req.headers.authourisation &&
     req.headers.authourisation.startsWith('Bearer')
@@ -18,6 +14,7 @@ const protect = asyncHandler(async (req, res, next) => {
       next()
     } catch (error) {
       console.log(error)
+      res.status(401)
     }
   }
 
@@ -25,6 +22,4 @@ const protect = asyncHandler(async (req, res, next) => {
     res.status(401)
   }
 })
-
-export { protect }
 export { protect }
