@@ -3,6 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import showRoutes from './routes/showRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/shows', showRoutes)
+app.use('/api/users', userRoutes)
 
 app.listen(
   PORT,

@@ -6,7 +6,6 @@ import { getShows, getShowById } from '../controllers/showController.js'
 const router = express.Router()
 
 router.route('/').get(getShows)
-
 router.route('/:id').get(getShowById)
 
 export default router
