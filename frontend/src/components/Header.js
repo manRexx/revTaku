@@ -1,7 +1,20 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { logout } from '../actions/userActions'
 
 const Header = () => {
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const dispatch = useDispatch()
+
+  const logoutHandler = () => {
+    dispatch(logout())
+    console.log('Logout')
+  }
   return (
     <>
       <nav class='navbar navbar-expand-lg navbar-dark bg-primary'>
@@ -47,14 +60,28 @@ const Header = () => {
             </ul>
           </div>
           <div>
-            <ul class='navbar-nav mr-auto'>
-              <li class='nav-item'>
-                <a class='nav-link' href='/login'>
-                  Log-in / Sign-up
-                  <span class='sr-only'>(current)</span>
-                </a>
-              </li>
-            </ul>
+            {!userInfo ? (
+              <ul class='navbar-nav mr-auto'>
+                <li class='nav-item'>
+                  <a class='nav-link' href='/login'>
+                    Log-in / Sign-up
+                    <span class='sr-only'>(current)</span>
+                  </a>
+                </li>
+              </ul>
+            ) : (
+              <ul class='navbar-nav mr-auto'>
+                <li class='nav-item'>
+                  <a class='nav-link' href='/profile'>
+                    <strong>{userInfo.name}</strong>
+                    <span class='sr-only'>(current)</span>
+                  </a>
+                </li>
+                <li class='nav-item'>
+                  <Button onClick={logoutHandler}>Logout</Button>
+                </li>
+              </ul>
+            )}
           </div>
         </Container>
       </nav>

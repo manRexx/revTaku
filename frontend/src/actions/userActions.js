@@ -32,3 +32,12 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_FAIL, payload: error.response })
   }
 }
+
+export const logout = () => async (dispatch) => {
+  try {
+    localStorage.removeItem('userInfo')
+    dispatch({ type: USER_LOGIN_LOGOUT })
+  } catch (error) {
+    console.log(error)
+  }
+}
