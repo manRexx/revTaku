@@ -135,9 +135,12 @@ const ShowInfoScreen = ({ match, history }) => {
               </h5>
               <hr />
               <h5>Available in</h5>
-              {show.language.map((lan) => (
-                <h7>{lan} </h7>
-              ))}
+              {/* {show.language.map((lan) => (
+                <h7>{lan}</h7>
+              ))} */}
+              <h5>
+                <strong>NAHI CHAL RHA</strong>
+              </h5>
             </center>
           </div>
         </Col>
