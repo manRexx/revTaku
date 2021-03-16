@@ -77,6 +77,14 @@ const Header = () => {
                     <span class='sr-only'>(current)</span>
                   </a>
                 </li>
+                {userInfo.isAdmin && (
+                  <li class='nav-item'>
+                    <a class='nav-link' href='/admin/showlist'>
+                      <strong>Database</strong>
+                      <span class='sr-only'>(current)</span>
+                    </a>
+                  </li>
+                )}
                 <li class='nav-item'>
                   <Button onClick={logoutHandler}>Logout</Button>
                 </li>
