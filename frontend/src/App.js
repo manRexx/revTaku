@@ -12,6 +12,7 @@ import AboutScreen from './screens/AboutScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ShowListScreen from './screens/ShowListScreen'
+import ShowEditScreen from './screens/ShowEditScreen'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path='/show-info/:id' component={ShowInfoScreen} />{' '}
             <Route path='/about' component={AboutScreen} />
             <Route path='/admin/showlist' component={ShowListScreen} />
+            <Route path='/admin/show/:id/edit' component={ShowEditScreen} />
           </main>
         </Container>
         <Footer />

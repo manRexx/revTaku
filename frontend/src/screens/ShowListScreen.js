@@ -4,7 +4,8 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listShows } from '../actions/showActions'
+import { listShows, createShow } from '../actions/showActions'
+import { SHOW_CREATE_RESET } from '../constants/showConstants'
 
 const ShowListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -16,18 +17,33 @@ const ShowListScreen = ({ history, match }) => {
   const { userInfo } = userLogin
   console.log(shows)
 
+  const showCreate = useSelector((state) => state.showCreate)
+  const {
+    success: successCreate,
+    loading: loadingCreate,
+    error: errorCreate,
+    show: createdShow,
+  } = showCreate
+
   useEffect(() => {
+    dispatch({ type: SHOW_CREATE_RESET })
     if (!userInfo.isAdmin) {
       history.push('/login')
     }
 
-    dispatch(listShows())
+    if (successCreate) {
+      history.push(`/admin/show/${createdShow._id}/edit`)
+      console.log(createdShow)
+    } else {
+      dispatch(listShows())
+    }
   }, [dispatch, history, userInfo])
 
   const deleteHandler = (id) => {
     console.log('delete')
   }
   const createProductHandler = () => {
+    dispatch(createShow())
     console.log('show created')
   }
 
@@ -39,7 +55,7 @@ const ShowListScreen = ({ history, match }) => {
         </Col>
         <Col className='text-right'>
           <Button className='my-3' onClick={createProductHandler}>
-            <i className='fas fa-plus'></i> Create Product
+            <i className='fas fa-plus'></i> Add show to database
           </Button>
         </Col>
       </Row>
@@ -87,6 +103,7 @@ const ShowListScreen = ({ history, match }) => {
                         varient='danger'
                         className='btn-sm m-auto'
                         type='rounded'
+                        onClick={deleteHandler}
                       >
                         <i className='fas fa-trash'>Delete</i>
                       </Button>

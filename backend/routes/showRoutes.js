@@ -1,11 +1,15 @@
 import express from 'express'
-import asyncHandler from 'express-async-handler'
-import Show from '../models/showModel.js'
-import { getShows, getShowById } from '../controllers/showController.js'
+import {
+  getShows,
+  getShowById,
+  createShow,
+  updateShow,
+} from '../controllers/showController.js'
+import { protect, admin } from '../middelware/authMiddelware.js'
 
 const router = express.Router()
 
-router.route('/').get(getShows)
-router.route('/:id').get(getShowById)
+router.route('/').get(getShows).post(protect, admin, createShow)
+router.route('/:id').get(getShowById).put(protect, admin, updateShow)
 
 export default router
