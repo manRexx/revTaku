@@ -30,7 +30,7 @@ function App() {
             <Route path='/show-info/:id' component={ShowInfoScreen} />{' '}
             <Route path='/about' component={AboutScreen} />
             <Route path='/admin/showlist' component={ShowListScreen} />
-            <Route path='/admin/show/:id/edit' component={ShowEditScreen} />
+            {/* <Route path='/admin/show/:id/edit' component={ShowEditScreen} /> */}
           </main>
         </Container>
         <Footer />
