@@ -15,7 +15,6 @@ const ShowListScreen = ({ history, match }) => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  console.log(shows)
 
   const showCreate = useSelector((state) => state.showCreate)
   const {
@@ -42,9 +41,12 @@ const ShowListScreen = ({ history, match }) => {
   const deleteHandler = (id) => {
     console.log('delete')
   }
-  const createProductHandler = () => {
-    dispatch(createShow())
-    console.log('show created')
+  const createShowHandler = () => {
+    history.push('/admin/show/create')
+  }
+
+  function showEditHandler(ID) {
+    history.push(`/admin/show/${ID}/edit`)
   }
 
   return (
@@ -54,7 +56,7 @@ const ShowListScreen = ({ history, match }) => {
           <h1>Shows</h1>
         </Col>
         <Col className='text-right'>
-          <Button className='my-3' onClick={createProductHandler}>
+          <Button className='my-3' onClick={createShowHandler}>
             <i className='fas fa-plus'></i> Add show to database
           </Button>
         </Col>
@@ -92,7 +94,11 @@ const ShowListScreen = ({ history, match }) => {
                   <td>{show.rating}</td>
                   <td>
                     <center>
-                      <Button varient='light' className='btn-sm m-auto'>
+                      <Button
+                        varient='light'
+                        className='btn-sm m-auto'
+                        onClick={() => showEditHandler(show._id)}
+                      >
                         <i className='fas fa-edit'>Edit</i>
                       </Button>
                     </center>

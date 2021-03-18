@@ -59,11 +59,7 @@ export const createShow = () => async (dispatch, getState) => {
     }
     console.log('chala')
 
-    const { data } = await axios.post(
-      `http://127.0.0.1:5000/api/shows`,
-      {},
-      config
-    )
+    const { data } = await axios.post(`/api/shows`, {}, config)
 
     console.log('chala')
 
