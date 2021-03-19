@@ -36,13 +36,13 @@ const ShowListScreen = ({ history, match }) => {
     } else {
       dispatch(listShows())
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, successCreate])
 
   const deleteHandler = (id) => {
     console.log('delete')
   }
   const createShowHandler = () => {
-    history.push('/admin/show/create')
+    dispatch(createShow())
   }
 
   function showEditHandler(ID) {

@@ -5,73 +5,82 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-// import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import { SHOW_UPDATE_RESET } from '../constants/showConstants'
+import { listShowDetail, updateShow } from '../actions/showActions'
 
-const ShowEditScreen = () => {
-  // const showId = match.params.id
-  // console.log(showId)
+const ShowEditScreen = ({ match, history }) => {
+  const showId = match.params.id
+  console.log(showId)
 
-  // const [originalTitle, setOriginalTitle] = useState('')
-  // const [isSeries, setIsSeries] = useState(false)
-  // const [image, setImage] = useState('')
-  // const [isMovie, setIsMovie] = useState(false)
-  // const [isAnime, setIsAnime] = useState(false)
-  // const [trailerLink, setTrailerLink] = useState('')
-  // const [description, setDescription] = useState('')
-  // const [genres, setGenres] = useState([])
-  // const [dateOfRelease, setDateOfRelease] = useState('')
-  // const [isAdult, setIsAdult] = useState(false)
-  // const [language, setLanguage] = useState([])
+  const [originalTitle, setOriginalTitle] = useState('') //DONE
+  const [isSeries, setIsSeries] = useState(false)
+  const [image, setImage] = useState('') //DONE
+  const [isMovie, setIsMovie] = useState(false)
+  const [isAnime, setIsAnime] = useState(false)
+  const [trailerLink, setTrailerLink] = useState('') //DONE
+  const [description, setDescription] = useState('') //DONE
+  const [genres, setGenres] = useState([])
+  const [dateOfRelease, setDateOfRelease] = useState('') //DONE
+  const [isAdult, setIsAdult] = useState(false)
+  const [language, setLanguage] = useState([])
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  // const productDetails = useSelector((state) => state.productDetails)
-  // const { loading, error, product } = productDetails
+  const showDetail = useSelector((state) => state.showDetail)
+  const { loading, error, show } = showDetail
 
-  // const productUpdate = useSelector((state) => state.productUpdate)
-  // const {
-  //   loading: loadingUpdate,
-  //   error: errorUpdate,
-  //   success: successUpdate,
-  // } = productUpdate
+  const showUpdate = useSelector((state) => state.showUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = showUpdate
 
-  // useEffect(() => {
-  //   if (successUpdate) {
-  //     dispatch({ type: PRODUCT_UPDATE_RESET })
-  //     history.push('/admin/productlist')
-  //   } else {
-  //     if (!product.name || product._id !== productId) {
-  //       dispatch(listProductDetails(productId))
-  //     } else {
-  //       setName(product.name)
-  //       setPrice(product.price)
-  //       setImage(product.image)
-  //       setBrand(product.brand)
-  //       setCategory(product.category)
-  //       setCountInStock(product.countInStock)
-  //       setDescription(product.description)
-  //     }
-  //   }
-  // }, [product, productId, dispatch, history, successUpdate])
+  useEffect(() => {
+    if (successUpdate) {
+      dispatch({ type: SHOW_UPDATE_RESET })
+      history.push('/admin/showlist')
+    } else {
+      if (!show.originalTitle || show._id !== showId) {
+        dispatch(listShowDetail(showId))
+      } else {
+        setOriginalTitle(show.originalTitle)
+        setIsSeries(show.isSeries)
+        setImage(show.image)
+        setIsMovie(show.isMovie)
+        setIsAnime(show.isAnime)
+        setTrailerLink(show.trailerLink)
+        setDescription(show.description)
+        setGenres(show.genres)
+        setDateOfRelease(show.dateOfRelease)
+        setIsAdult(show.isAdult)
+        setLanguage(show.language)
+      }
+    }
+  }, [show, showId, dispatch, history, successUpdate])
 
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   dispatch(
-  //     updateProduct({
-  //       _id: productId,
-  //       name,
-  //       price,
-  //       image,
-  //       brand,
-  //       category,
-  //       countInStock,
-  //       description,
-  //     })
-  //   )
-  // }
+  const submitHandler = (e) => {
+    e.preventDefault()
+    dispatch(
+      updateShow({
+        _id: showId,
+        originalTitle,
+        isSeries,
+        image,
+        isMovie,
+        isAnime,
+        trailerLink,
+        description,
+        genres,
+        dateOfRelease,
+        isAdult,
+        language,
+      })
+    )
+  }
   return (
     <>
-      {/* <Link to='/admin/productlist' className='btn btn-light my-3'>
+      <Link to='/admin/showlist' className='btn btn-light my-3'>
         Go Back
       </Link>
       <FormContainer>
@@ -84,70 +93,13 @@ const ShowEditScreen = () => {
           <Message varient='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
+            <Form.Group controlId='originalTitle'>
+              <Form.Label>Original-Title</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='Price'>
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type='number'
-                placeholder='Enter Price'
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='image'>
-              <Form.Label>Image</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter Image url'
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></Form.Control>
-              <Form.File
-                id='image-file'
-                label='Choose File'
-                custom
-                onChange={uploadFileHandler}
-              ></Form.File>
-              {uploading && <Loader />}
-            </Form.Group>
-
-            <Form.Group controlId='brand'>
-              <Form.Label>Brand</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter Brand'
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='countInStock'>
-              <Form.Label>CountInStock</Form.Label>
-              <Form.Control
-                type='number'
-                placeholder='Enter countInStock'
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='category'>
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter category'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                placeholder='Enter Original-Title'
+                value={originalTitle}
+                onChange={(e) => setOriginalTitle(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -161,12 +113,42 @@ const ShowEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
+            <Form.Group controlId='image'>
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter Image url'
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='trailer'>
+              <Form.Label>Trailer Link</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter Trailer link'
+                value={trailerLink}
+                onChange={(e) => setTrailerLink(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='releaseDate'>
+              <Form.Label>Date of Release</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter date of release'
+                value={dateOfRelease}
+                onChange={(e) => setDateOfRelease(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
             <Button type='submit' variant='primary'>
               Update
             </Button>
           </Form>
         )}
-      </FormContainer> */}
+      </FormContainer>
     </>
   )
 }

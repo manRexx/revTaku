@@ -39,6 +39,7 @@ const createShow = asyncHandler(async (req, res) => {
 })
 
 const updateShow = asyncHandler(async (req, res) => {
+  console.log('plat')
   const {
     originalTitle,
     image,
@@ -53,8 +54,12 @@ const updateShow = asyncHandler(async (req, res) => {
     language,
     dateOfRelease,
   } = req.body
+  console.log('plat')
 
   const show = await Show.findById(req.params.id)
+
+  console.log('plat')
+  console.log(show)
 
   if (show) {
     show.originalTitle = originalTitle

@@ -92,8 +92,11 @@ export const updateShow = (show) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
+    console.log('yaha')
 
     const { data } = await axios.put(`/api/shows/${show._id}`, show, config)
+
+    console.log('yaha 1')
 
     dispatch({
       type: SHOW_UPDATE_SUCCESS,

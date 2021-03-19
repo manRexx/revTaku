@@ -9,7 +9,7 @@ import { protect, admin } from '../middelware/authMiddelware.js'
 
 const router = express.Router()
 
-router.route('/:id').get(getShowById).put(protect, admin, updateShow)
 router.route('/').get(getShows).post(protect, admin, createShow)
+router.route('/:id').get(getShowById).put(protect, admin, updateShow)
 
 export default router
