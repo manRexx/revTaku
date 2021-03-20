@@ -39,7 +39,6 @@ const createShow = asyncHandler(async (req, res) => {
 })
 
 const updateShow = asyncHandler(async (req, res) => {
-  console.log('plat')
   const {
     originalTitle,
     image,
@@ -54,14 +53,10 @@ const updateShow = asyncHandler(async (req, res) => {
     language,
     dateOfRelease,
   } = req.body
-  console.log('plat')
 
   const show = await Show.findById(req.params.id)
 
-  console.log('plat')
-  console.log(show)
-
-  if (show) {
+  /*{if (show) {
     show.originalTitle = originalTitle
     show.image = image
     show.description = description
@@ -73,6 +68,17 @@ const updateShow = asyncHandler(async (req, res) => {
     show.genres = genres
     show.isAdult = isAdult
     show.language = language
+    show.dateOfRelease = dateOfRelease
+
+    const updatedShow = await show.save()
+    res.json(updatedShow)
+  }}*/
+
+  if (show) {
+    show.originalTitle = originalTitle
+    show.image = image
+    show.description = description
+    show.trailerLink = trailerLink
     show.dateOfRelease = dateOfRelease
 
     const updatedShow = await show.save()

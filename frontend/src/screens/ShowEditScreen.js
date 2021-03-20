@@ -84,7 +84,7 @@ const ShowEditScreen = ({ match, history }) => {
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit Product</h1>
+        <h1>Edit Show</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message varient='danger'>{errorUpdate}</Message>}
         {loading ? (
