@@ -13,15 +13,15 @@ const ShowEditScreen = ({ match, history }) => {
   console.log(showId)
 
   const [originalTitle, setOriginalTitle] = useState('') //DONE
-  const [isSeries, setIsSeries] = useState(false)
+  const [isSeries, setIsSeries] = useState('')
   const [image, setImage] = useState('') //DONE
-  const [isMovie, setIsMovie] = useState(false)
-  const [isAnime, setIsAnime] = useState(false)
+  const [isMovie, setIsMovie] = useState('')
+  const [isAnime, setIsAnime] = useState('')
   const [trailerLink, setTrailerLink] = useState('') //DONE
   const [description, setDescription] = useState('') //DONE
   const [genres, setGenres] = useState([])
   const [dateOfRelease, setDateOfRelease] = useState('') //DONE
-  const [isAdult, setIsAdult] = useState(false)
+  const [isAdult, setIsAdult] = useState('')
   const [language, setLanguage] = useState([])
 
   const dispatch = useDispatch()
@@ -54,6 +54,9 @@ const ShowEditScreen = ({ match, history }) => {
         setGenres(show.genres)
         setDateOfRelease(show.dateOfRelease)
         setIsAdult(show.isAdult)
+        {
+          show.isAdult === true ? setIsAdult('true') : setIsAdult('false')
+        }
         setLanguage(show.language)
       }
     }
@@ -65,15 +68,15 @@ const ShowEditScreen = ({ match, history }) => {
       updateShow({
         _id: showId,
         originalTitle,
-        isSeries,
+        isSeries: isSeries === 'true' ? true : false,
         image,
-        isMovie,
-        isAnime,
+        isMovie: isMovie === 'true' ? true : false,
+        isAnime: isAnime === 'true' ? true : false,
         trailerLink,
         description,
         genres,
         dateOfRelease,
-        isAdult,
+        isAdult: isAdult === 'true' ? true : false,
         language,
       })
     )
@@ -120,6 +123,50 @@ const ShowEditScreen = ({ match, history }) => {
                 placeholder='Enter Image url'
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='isAdult'>
+              <Form.Label>
+                <strong>isAdult</strong> {`{write true in lowercase}`}
+              </Form.Label>
+              <Form.Control
+                type='text'
+                value={isAdult}
+                onChange={(e) => setIsAdult(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='isMovie'>
+              <Form.Label>
+                <strong>isMovie</strong> {`{write true in lowercase}`}
+              </Form.Label>
+              <Form.Control
+                type='text'
+                value={isMovie}
+                onChange={(e) => setIsMovie(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='isSeries'>
+              <Form.Label>
+                <strong>isSeries</strong> {`{write true in lowercase}`}
+              </Form.Label>
+              <Form.Control
+                type='text'
+                value={isSeries}
+                onChange={(e) => setIsSeries(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='isAnime'>
+              <Form.Label>
+                <strong>isAnime</strong> {`{write true in lowercase}`}
+              </Form.Label>
+              <Form.Control
+                type='text'
+                value={isAnime}
+                onChange={(e) => setIsAnime(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

@@ -56,6 +56,11 @@ const updateShow = asyncHandler(async (req, res) => {
 
   const show = await Show.findById(req.params.id)
 
+  console.log(isAdult)
+  console.log(isMovie)
+  console.log(isSeries)
+  console.log(isAnime)
+
   /*{if (show) {
     show.originalTitle = originalTitle
     show.image = image
@@ -80,6 +85,10 @@ const updateShow = asyncHandler(async (req, res) => {
     show.description = description
     show.trailerLink = trailerLink
     show.dateOfRelease = dateOfRelease
+    show.isAdult = isAdult
+    show.isMovie = isMovie
+    show.isSeries = isSeries
+    show.isAnime = isAnime
 
     const updatedShow = await show.save()
     res.json(updatedShow)
