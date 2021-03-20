@@ -1,30 +1,5 @@
 import mongoose from 'mongoose'
 
-const reviewSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    rating: {
-      type: Number,
-      required: true,
-    },
-    comment: {
-      type: String,
-      required: true,
-    },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
 const seasonInfoSchema = mongoose.Schema(
   {
     seasonNumber: {
@@ -52,20 +27,6 @@ const seasonInfoSchema = mongoose.Schema(
     timestamps: true,
   }
 )
-
-// const genreSchema = mongoose.Schema({
-//   genre: {
-//     type: String,
-//     required: true,
-//   },
-// })
-
-// const languageSchema = mongoose.Schema({
-//   language: {
-//     type: String,
-//     required: true,
-//   },
-// })
 
 const showSchema = mongoose.Schema(
   {
@@ -131,7 +92,6 @@ const showSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    reviews: [reviewSchema],
   },
   {
     timestamps: true,

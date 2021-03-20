@@ -83,14 +83,14 @@ const UserProfileScreen = () => {
       <h1>Your Reviews</h1>
 
       {reviews.map((review) => (
-        <Card>
+        <Card className='text-center'>
           <Card.Header>{review.originalTitle}</Card.Header>
           <Card.Body>
             <Card.Title>
               Your rating:{' '}
               <span>
                 <h3>
-                  <strong>{review.rating}🌟</strong>
+                  <strong>{review.rating}</strong>
                 </h3>
               </span>
             </Card.Title>
