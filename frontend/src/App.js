@@ -13,6 +13,7 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ShowListScreen from './screens/ShowListScreen'
 import ShowEditScreen from './screens/ShowEditScreen'
+import UserProfileScreen from './screens/UserProfileScreen'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <main className='py-3'>
             <Route path='/' component={HomeScreen} exact />
             <Route path='/login' component={LoginScreen} />
+            <Route path='/profile' component={UserProfileScreen} />
             <Route path='/register' component={RegisterScreen} />
             <Route path='/movies' component={MovieScreen} />
             <Route path='/series' component={SeriesScreen} />

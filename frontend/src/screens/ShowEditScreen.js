@@ -53,9 +53,17 @@ const ShowEditScreen = ({ match, history }) => {
         setDescription(show.description)
         setGenres(show.genres)
         setDateOfRelease(show.dateOfRelease)
-        setIsAdult(show.isAdult)
         {
           show.isAdult === true ? setIsAdult('true') : setIsAdult('false')
+        }
+        {
+          show.isMovie === true ? setIsMovie('true') : setIsMovie('false')
+        }
+        {
+          show.isSeries === true ? setIsSeries('true') : setIsSeries('false')
+        }
+        {
+          show.isAnime === true ? setIsAnime('true') : setIsAnime('false')
         }
         setLanguage(show.language)
       }
