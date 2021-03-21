@@ -42,4 +42,10 @@ const addReview = asyncHandler(async (req, res) => {
   }
 })
 
-export { addReview }
+const getReviews = asyncHandler(async (req, res) => {
+  const reviews = await Review.find({})
+
+  res.json(reviews)
+})
+
+export { addReview, getReviews }

@@ -14,6 +14,7 @@ import {
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listShowDetail } from '../actions/showActions'
+import { listReviews } from '../actions/reviewActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -24,11 +25,23 @@ const ShowInfoScreen = ({ match, history }) => {
 
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading, show } = showDetail
-  console.log(show)
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const reviewList = useSelector((state) => state.reviewList)
+  const {
+    error: errorReviewList,
+    reviews,
+    loading: loadingReviewList,
+  } = reviewList
+
+  console.log('User ID: ' + userInfo.id)
 
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(listShowDetail(id))
+    dispatch(listReviews())
   }, [dispatch])
 
   const data = {
