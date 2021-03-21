@@ -1,9 +1,9 @@
-// To start server nodemon backend/server
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import showRoutes from './routes/showRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import reviewRoutes from './routes/reviewRoutes.js'
 
 dotenv.config()
 
@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/shows', showRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/reviews', reviewRoutes)
 
 app.listen(
   PORT,

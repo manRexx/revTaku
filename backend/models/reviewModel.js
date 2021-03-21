@@ -10,6 +10,10 @@ const reviewSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    showImageURL: {
+      type: String,
+      required: true,
+    },
     showName: {
       type: String,
       required: true,
