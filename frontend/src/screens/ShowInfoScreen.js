@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Image,
   Row,
@@ -8,6 +8,9 @@ import {
   Jumbotron,
   Container,
   Alert,
+  Tabs,
+  Tab,
+  Card,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listShowDetail } from '../actions/showActions'
@@ -16,6 +19,8 @@ import Message from '../components/Message'
 
 const ShowInfoScreen = ({ match, history }) => {
   const id = match.params.id
+
+  const [key, setKey] = useState('home')
 
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading, show } = showDetail
@@ -102,7 +107,7 @@ const ShowInfoScreen = ({ match, history }) => {
       <Row>
         <Col lg={4} className='m-3'>
           <center>
-            <Image src={show.image} fluid />
+            <Image src={show.image} fluid style={{ height: '25rem' }} />
           </center>
           <div className='p-2'>
             <center>
@@ -168,75 +173,55 @@ const ShowInfoScreen = ({ match, history }) => {
           </Jumbotron>
         </Col>
       </Row>
-      <Row className='m-auto p-3'>
-        <Col>
-          <Jumbotron>
-            <Container>
-              <h2 className='m-auto p-3'>
-                <strong>Your Review</strong>
-              </h2>
-              <p className='m-auto p-3'>
-                Masterpiece movie pure masterpiece in every espects like plot
-                twist were crazy story was beautiful and the dream stuff was my
-                fav stuff and literlly highlight there characters in such a
-                short time and this impactfully intersting concept like how they
-                depicted their soul realm way to intersting and the way things
-                sets up so effortlessly only demon slayer can do this extremely
-                emothional movie and my eyes were so teary and cried like a
-                madman can't express the feeling one thing more when rengoku
-                said set your heart ablaze it wasn't only words things you know
-                he actually did In the movie his heart was literlly on 🔥 fire
-                it was so hype moment personally not only anime wise literlly
-                one of the best movie to exist there was everything realistic
-                comedy ,Beautiful and interesting plot ,action, mysterious wibe
-                ,intense, sadness and has one of the best anime fights easily
-                ost were good voice acting was extremely good and animation was
-                just way too good obviously it's ufotable no doubt there the
-                movie will literlly gonna pierce your heart 😔 and this dude
-                Rengoku is a G. O. A. T hands down one of the best written anime
-                character Overall a Masterpiece movie
-              </p>
-            </Container>
-          </Jumbotron>
-        </Col>
-      </Row>
-      <Row className='m-auto p-3'>
-        <Col>
-          <Jumbotron variant='light'>
-            <Container>
-              <div className='m-auto p-3'>
-                <h1>
-                  <strong>What others think</strong>
-                </h1>
-              </div>
-
-              {data.reviews.map((review) => (
-                <Alert variant='secondary'>
-                  <Alert.Heading>
-                    {' '}
-                    <strong>{review.name}</strong>
-                  </Alert.Heading>
-                  <hr />
-                  <div className='m-auto p-3'>
-                    <h6>
-                      Posted at: <strong>{review.createdAt}</strong>
-                    </h6>
-                    <p>
-                      <strong>{review.rev}</strong>
-                    </p>
-                    <h5>
-                      <strong> Overall rating: {review.rating}</strong>
-                      <i class='fas fa-stars'></i>
-                    </h5>
-                  </div>
-                </Alert>
-              ))}
-
-              <Button>See more...</Button>
-            </Container>
-          </Jumbotron>
-        </Col>
-      </Row>
+      <hr></hr>
+      <h1>Reviews</h1>
+      <Tabs
+        id='controlled-tab-example'
+        activeKey={key}
+        onSelect={(k) => setKey(k)}
+      >
+        <Tab eventKey='home' title='Your Review'>
+          <h1></h1>
+          <Card className='m-auto'>
+            <Card.Header>{data.reviews[0].name}</Card.Header>
+            <Card.Body>
+              <Card.Title>
+                Rating:{' '}
+                <span>
+                  <h3>
+                    <strong>{data.reviews[0].rating}</strong>
+                  </h3>
+                </span>
+              </Card.Title>
+              <Card.Text>{data.reviews[0].rev}</Card.Text>
+              <Card.Text>Created @: {data.reviews[0].createdAt}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Tab>
+        <Tab eventKey='profile' title='What others think'>
+          <h1></h1>
+          {data.reviews.map((review) => (
+            <>
+              <Card className='m-auto'>
+                <Card.Header>User: {review.name}</Card.Header>
+                <Card.Body>
+                  <Card.Title>
+                    Rating:{' '}
+                    <span>
+                      <h3>
+                        <strong>{review.rating}</strong>
+                      </h3>
+                    </span>
+                  </Card.Title>
+                  <Card.Text>{review.rev}</Card.Text>
+                  <Card.Text>Created @: {review.createdAt}</Card.Text>
+                </Card.Body>
+              </Card>
+              <h1></h1>
+            </>
+          ))}
+        </Tab>
+      </Tabs>
     </div>
   )
 }

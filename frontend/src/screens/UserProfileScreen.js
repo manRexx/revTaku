@@ -83,21 +83,24 @@ const UserProfileScreen = () => {
       <h1>Your Reviews</h1>
 
       {reviews.map((review) => (
-        <Card className='text-center'>
-          <Card.Header>{review.originalTitle}</Card.Header>
-          <Card.Body>
-            <Card.Title>
-              Your rating:{' '}
-              <span>
-                <h3>
-                  <strong>{review.rating}</strong>
-                </h3>
-              </span>
-            </Card.Title>
-            <Card.Text>{review.rev}</Card.Text>
-            <Card.Text>Created @: {review.createdAt}</Card.Text>
-          </Card.Body>
-        </Card>
+        <>
+          <Card className='text-center'>
+            <Card.Header>{review.originalTitle}</Card.Header>
+            <Card.Body>
+              <Card.Title>
+                Your rating:{' '}
+                <span>
+                  <h3>
+                    <strong>{review.rating}</strong>
+                  </h3>
+                </span>
+              </Card.Title>
+              <Card.Text>{review.rev}</Card.Text>
+              <Card.Text>Created @: {review.createdAt}</Card.Text>
+            </Card.Body>
+          </Card>
+          <h1></h1>
+        </>
       ))}
     </>
   )
