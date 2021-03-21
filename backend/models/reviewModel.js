@@ -6,6 +6,10 @@ const reviewSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    userName: {
+      type: String,
+      required: true,
+    },
     showId: {
       type: String,
       required: true,

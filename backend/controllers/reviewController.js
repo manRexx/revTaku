@@ -9,6 +9,7 @@ const addReview = asyncHandler(async (req, res) => {
     showName,
     review,
     userRating,
+    userName,
   } = req.body
 
   const reviewExist = await Review.findOne({ userId: userId, showId: showId })
@@ -21,6 +22,7 @@ const addReview = asyncHandler(async (req, res) => {
   const userReview = await Review.create({
     userId: userId,
     showId: showId,
+    userName: userName,
     showImageURL: showImageURL,
     showName: showName,
     review: review,
@@ -35,6 +37,7 @@ const addReview = asyncHandler(async (req, res) => {
       showName: userReview.showName,
       review: userReview.review,
       userRating: userReview.userRating,
+      userName: userReview.userName,
     })
   } else {
     res.status(400)

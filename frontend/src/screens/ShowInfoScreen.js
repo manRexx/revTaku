@@ -32,17 +32,17 @@ const ShowInfoScreen = ({ match, history }) => {
   const reviewList = useSelector((state) => state.reviewList)
   const {
     error: errorReviewList,
-    reviews,
+    reviews: reviewData,
     loading: loadingReviewList,
   } = reviewList
 
-  console.log('User ID: ' + userInfo.id)
-
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(listShowDetail(id))
     dispatch(listReviews())
-  }, [dispatch])
+    dispatch(listShowDetail(id))
+  }, [dispatch, id])
+
+  console.log(reviewData)
 
   const data = {
     _id: 2,
@@ -114,127 +114,147 @@ const ShowInfoScreen = ({ match, history }) => {
 
   return (
     <div>
-      <h2 className='m-auto p-3'>
-        <strong>{show.originalTitle}</strong>
-      </h2>
-      <Row>
-        <Col lg={4} className='m-3'>
-          <center>
-            <Image src={show.image} fluid style={{ height: '25rem' }} />
-          </center>
-          <div className='p-2'>
-            <center>
-              {show.isMovie && (
-                <Badge pill variant='warning'>
-                  Movie
-                </Badge>
-              )}{' '}
-              {show.isSeries && (
-                <Badge pill variant='primary'>
-                  Series
-                </Badge>
-              )}{' '}
-              {show.isAnime && (
-                <Badge pill variant='danger'>
-                  Anime
-                </Badge>
-              )}
-            </center>
-          </div>
-          <div>
-            <center>
-              <h5>
-                {' '}
-                <strong>Released at: {show.dateOfRelease}</strong>
-              </h5>
-              <h5>
-                {' '}
-                <strong>Is Adult: {show.isAdult ? 'true' : 'false'}</strong>
-              </h5>
-              <hr />
-              <h5>Available in</h5>
-              {/* {show.language.map((lan) => (
+      {loadingReviewList ? (
+        <Loader />
+      ) : (
+        <>
+          <h2 className='m-auto p-3'>
+            <strong>{show.originalTitle}</strong>
+          </h2>
+          <Row>
+            <Col lg={4} className='m-3'>
+              <center>
+                <Image src={show.image} fluid style={{ height: '25rem' }} />
+              </center>
+              <div className='p-2'>
+                <center>
+                  {show.isMovie && (
+                    <Badge pill variant='warning'>
+                      Movie
+                    </Badge>
+                  )}{' '}
+                  {show.isSeries && (
+                    <Badge pill variant='primary'>
+                      Series
+                    </Badge>
+                  )}{' '}
+                  {show.isAnime && (
+                    <Badge pill variant='danger'>
+                      Anime
+                    </Badge>
+                  )}
+                </center>
+              </div>
+              <div>
+                <center>
+                  <h5>
+                    {' '}
+                    <strong>Released at: {show.dateOfRelease}</strong>
+                  </h5>
+                  <h5>
+                    {' '}
+                    <strong>Is Adult: {show.isAdult ? 'true' : 'false'}</strong>
+                  </h5>
+                  <hr />
+                  <h5>Available in</h5>
+                  {/* {show.language.map((lan) => (
                 <h7>{lan}</h7>
               ))} */}
-              <h5>
-                <strong>NAHI CHAL RHA</strong>
-              </h5>
-            </center>
-          </div>
-        </Col>
-        <Col>
-          <Jumbotron>
-            <Row className='m-auto p-3'>
-              {data.genre.map((gen) => (
-                <Button>{gen}</Button>
-              ))}
-              <h5>
-                <strong>ERROR</strong>
-              </h5>
-            </Row>
-            <Row className='m-auto p-3'>
-              <p>{show.description}</p>
-            </Row>{' '}
-            <Row className='m-auto p-3'>
-              <a href={show.trailerLink} target='blank'>
-                {' '}
-                <Button variant='danger' size='lg' className='rounded'>
-                  View Trailer on Youtube
-                </Button>
-              </a>
-            </Row>
-          </Jumbotron>
-        </Col>
-      </Row>
-      <hr></hr>
-      <h1>Reviews</h1>
-      <Tabs
-        id='controlled-tab-example'
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-      >
-        <Tab eventKey='home' title='Your Review'>
-          <h1></h1>
-          <Card className='m-auto'>
-            <Card.Header>{data.reviews[0].name}</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                Rating:{' '}
-                <span>
-                  <h3>
-                    <strong>{data.reviews[0].rating}</strong>
-                  </h3>
-                </span>
-              </Card.Title>
-              <Card.Text>{data.reviews[0].rev}</Card.Text>
-              <Card.Text>Created @: {data.reviews[0].createdAt}</Card.Text>
-            </Card.Body>
-          </Card>
-        </Tab>
-        <Tab eventKey='profile' title='What others think'>
-          <h1></h1>
-          {data.reviews.map((review) => (
-            <>
-              <Card className='m-auto'>
-                <Card.Header>User: {review.name}</Card.Header>
-                <Card.Body>
-                  <Card.Title>
-                    Rating:{' '}
-                    <span>
-                      <h3>
-                        <strong>{review.rating}</strong>
-                      </h3>
-                    </span>
-                  </Card.Title>
-                  <Card.Text>{review.rev}</Card.Text>
-                  <Card.Text>Created @: {review.createdAt}</Card.Text>
-                </Card.Body>
-              </Card>
+                  <h5>
+                    <strong>NAHI CHAL RHA</strong>
+                  </h5>
+                </center>
+              </div>
+            </Col>
+            <Col>
+              <Jumbotron>
+                <Row className='m-auto p-3'>
+                  {data.genre.map((gen) => (
+                    <Button>{gen}</Button>
+                  ))}
+                  <h5>
+                    <strong>ERROR</strong>
+                  </h5>
+                </Row>
+                <Row className='m-auto p-3'>
+                  <p>{show.description}</p>
+                </Row>{' '}
+                <Row className='m-auto p-3'>
+                  <a href={show.trailerLink} target='blank'>
+                    {' '}
+                    <Button variant='danger' size='lg' className='rounded'>
+                      View Trailer on Youtube
+                    </Button>
+                  </a>
+                </Row>
+              </Jumbotron>
+            </Col>
+          </Row>
+          <hr></hr>
+          <h1>Reviews</h1>
+          <Tabs
+            id='controlled-tab-example'
+            activeKey={key}
+            onSelect={(k) => setKey(k)}
+          >
+            <Tab eventKey='home' title='Your Review'>
+              <h1>Your review will come here</h1>
+              {userInfo &&
+                reviewData.map((rev) =>
+                  rev.userId === userInfo.id && rev.showId === id ? (
+                    <>
+                      <Card className='m-auto'>
+                        <Card.Header>User: {rev.userName}</Card.Header>
+                        <Card.Body>
+                          <Card.Title>
+                            Rating:{' '}
+                            <span>
+                              <h3>
+                                <strong>{rev.userRating}</strong>
+                              </h3>
+                            </span>
+                          </Card.Title>
+                          <Card.Text>{rev.review}</Card.Text>
+                          <Card.Text>Created @: {rev.createdAt}</Card.Text>
+                        </Card.Body>
+                      </Card>
+                      <h1></h1>
+                    </>
+                  ) : (
+                    <h1>Create data</h1>
+                  )
+                )}
+            </Tab>
+            <Tab eventKey='profile' title='What others think'>
               <h1></h1>
-            </>
-          ))}
-        </Tab>
-      </Tabs>
+              {reviewData.map((review) =>
+                review.showId === id ? (
+                  <>
+                    <Card className='m-auto'>
+                      <Card.Header>User: {review.userName}</Card.Header>
+                      <Card.Body>
+                        <Card.Title>
+                          Rating:{' '}
+                          <span>
+                            <h3>
+                              <strong>{review.userRating}</strong>
+                            </h3>
+                          </span>
+                        </Card.Title>
+                        <Card.Text>{review.review}</Card.Text>
+                        <Card.Text>Created @: {review.createdAt}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                    <h1></h1>
+                  </>
+                ) : (
+                  <h5>Hurray!! Your are the first to review!!</h5>
+                )
+              )}
+            </Tab>
+          </Tabs>
+        </>
+      )}
     </div>
   )
 }
