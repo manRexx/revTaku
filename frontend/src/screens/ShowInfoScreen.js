@@ -11,10 +11,13 @@ import {
   Tabs,
   Tab,
   Card,
+  Form,
+  FormControl,
+  Dropdown,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { listShowDetail } from '../actions/showActions'
-import { listReviews } from '../actions/reviewActions'
+import { createShow, listShowDetail } from '../actions/showActions'
+import { listReviews, createReview } from '../actions/reviewActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -22,6 +25,10 @@ const ShowInfoScreen = ({ match, history }) => {
   const id = match.params.id
 
   const [key, setKey] = useState('home')
+  const [askReview, setAskReview] = useState('')
+  const [askRating, setAskRating] = useState(0)
+
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading, show } = showDetail
@@ -112,6 +119,10 @@ const ShowInfoScreen = ({ match, history }) => {
     ],
   }
 
+  const reviewSubmitHandler = () => {
+    dispatch(createShow(show, askReview, askRating))
+  }
+
   return (
     <div>
       {loadingReviewList ? (
@@ -198,7 +209,6 @@ const ShowInfoScreen = ({ match, history }) => {
             onSelect={(k) => setKey(k)}
           >
             <Tab eventKey='home' title='Your Review'>
-              <h1>Your review will come here</h1>
               {userInfo &&
                 reviewData.map((rev) =>
                   rev.userId === userInfo.id && rev.showId === id ? (
@@ -221,7 +231,43 @@ const ShowInfoScreen = ({ match, history }) => {
                       <h1></h1>
                     </>
                   ) : (
-                    <h1>Create data</h1>
+                    <>
+                      <h1></h1>
+                      <Form onSubmit={reviewSubmitHandler}>
+                        <Form.Label>Your Ratings</Form.Label>
+                        {/* <Form.Control as='select'>
+                            {arr.map((num) => (
+                              <option>{num}</option>
+                            ))}
+                          </Form.Control> */}
+
+                        <FormControl
+                          as='select'
+                          value={askRating}
+                          onChange={(e) => {
+                            setAskRating(e.target.value)
+                          }}
+                        >
+                          {arr.map((x) => (
+                            <option value={x}>{x}</option>
+                          ))}
+                        </FormControl>
+
+                        <Form.Group controlId='name'>
+                          <Form.Label>Enter your thoughts</Form.Label>
+                          <Form.Control
+                            as='textarea'
+                            rows={3}
+                            value={askReview}
+                            onChange={(e) => setAskReview(e.target.value)}
+                          ></Form.Control>
+                        </Form.Group>
+
+                        <Button type='submit' variant='primary'>
+                          Create Review
+                        </Button>
+                      </Form>
+                    </>
                   )
                 )}
             </Tab>

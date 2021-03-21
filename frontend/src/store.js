@@ -8,7 +8,10 @@ import {
   showUpdateReducer,
 } from './reducers/showReducers'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
-import { reviewListReducer } from './reducers/reviewReducers'
+import {
+  reviewListReducer,
+  reviewCreateReducer,
+} from './reducers/reviewReducers'
 
 const reducer = combineReducers({
   showList: showListReducer,
@@ -18,6 +21,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   reviewList: reviewListReducer,
+  reviewCreate: reviewCreateReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
