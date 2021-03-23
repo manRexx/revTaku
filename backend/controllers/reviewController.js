@@ -41,7 +41,7 @@ const updatedReview = asyncHandler(async (req, res) => {
     userRating,
   } = req.body
 
-  const rev = await rev.findById(req.params.id)
+  const rev = await Review.findById(req.params.id)
 
   if (rev) {
     rev.userId = userId

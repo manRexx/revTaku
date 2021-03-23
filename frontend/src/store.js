@@ -12,6 +12,7 @@ import {
   reviewListReducer,
   reviewCreateReducer,
   reviewUserListReducer,
+  reviewUpdateReducer,
 } from './reducers/reviewReducers'
 
 const reducer = combineReducers({
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   reviewList: reviewListReducer,
   reviewCreate: reviewCreateReducer,
+  reviewUpdate: reviewUpdateReducer,
   reviewUserList: reviewUserListReducer,
 })
 

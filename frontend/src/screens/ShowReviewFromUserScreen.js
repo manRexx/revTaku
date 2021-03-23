@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createReview } from '../actions/reviewActions'
+import { updateReview } from '../actions/reviewActions'
 import {
   Row,
   Col,
@@ -13,6 +13,7 @@ import {
 } from 'react-bootstrap'
 import { listShowDetail } from '../actions/showActions'
 import Loader from '../components/Loader'
+import { REVIEW_UPDATE_RESET } from '../constants/reviewConstants'
 
 const ShowReviewFromUserScreen = ({ history, match }) => {
   const id = match.params.id
@@ -34,24 +35,48 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading: showLoading, show } = showDetail
 
+  const reviewUpdate = useSelector((state) => state.reviewUpdate)
+  const {
+    error: errorUpdate,
+    loading: loadingUpdate,
+    success: successUpdate,
+  } = reviewUpdate
+
   useEffect(() => {
-    dispatch(listShowDetail(showId))
-    if (!showLoading) {
-      setShowID(show._id)
-      setShowImageURL(show.image)
-      setShowName(show.originalTitle)
+    if (successUpdate) {
+      dispatch({ type: REVIEW_UPDATE_RESET })
+      history.push('/')
+    } else {
+      dispatch(listShowDetail(showId))
+      if (!showLoading) {
+        setShowID(show._id)
+        setShowImageURL(show.image)
+        setShowName(show.originalTitle)
+      }
     }
-  }, [dispatch, showId, showLoading])
+  }, [dispatch, showId, showLoading, successUpdate])
 
   const subitHandler = (e) => {
     e.preventDefault()
-    console.log('submit')
+    dispatch(
+      updateReview({
+        _id: id,
+        userId: userInfo.id,
+        userName: userInfo.name,
+        showId: showID,
+        showImageURL,
+        showName,
+        userRating,
+        review: userReview,
+      })
+    )
   }
 
   return (
     <>
       <h1>review id : {id}</h1>
       <h1>show id : {showId}</h1>
+      {loadingUpdate && <Loader />}
       {showLoading ? (
         <Loader />
       ) : (
