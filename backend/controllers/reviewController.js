@@ -54,7 +54,7 @@ const getReviews = asyncHandler(async (req, res) => {
 })
 
 const getUserReviews = asyncHandler(async (req, res) => {
-  const id = req.params.userId
+  const id = req.params.id
   const reviews = await Review.find({ userId: id })
 
   res.json(reviews)
