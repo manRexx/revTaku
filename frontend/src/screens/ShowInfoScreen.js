@@ -216,7 +216,7 @@ const ShowInfoScreen = ({ match, history }) => {
           >
             <Tab eventKey='home' title='Your Review'>
               <h1></h1>
-              {reviewData.length !== 0 ? (
+              {reviewData.length !== 0 && (
                 <>
                   {reviewData.map(
                     (review) =>
@@ -244,14 +244,9 @@ const ShowInfoScreen = ({ match, history }) => {
                         </>
                       )
                   )}
-                  {!isReviewPresent && <h5>Form yaha</h5>}
-                </>
-              ) : (
-                <>
-                  <h5>Hurray!! Your are the first to review!!</h5>
-                  <h5>Form yaha</h5>
                 </>
               )}
+              {!isReviewPresent && <h5>Form yaha</h5>}
             </Tab>
             <Tab eventKey='profile' title='What others think'>
               <h1></h1>
