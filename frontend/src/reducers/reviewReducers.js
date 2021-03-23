@@ -8,6 +8,7 @@ import {
   REVIEW_USER_LIST_REQUEST,
   REVIEW_USER_LIST_SUCCESS,
   REVIEW_USER_LIST_FAIL,
+  REVIEW_CREATE_RESET,
 } from '../constants/reviewConstants'
 
 export const reviewListReducer = (state = { reviews: [] }, action) => {
@@ -29,9 +30,11 @@ export const reviewCreateReducer = (state = {}, action) => {
     case REVIEW_CREATE_REQUEST:
       return { loading: true }
     case REVIEW_CREATE_SUCCESS:
-      return { loading: false, reviewCreate: action.payload }
+      return { loading: false, success: true, review: action.payload }
     case REVIEW_CREATE_FAIL:
       return { loading: false, error: action.payload }
+    case REVIEW_CREATE_RESET:
+      return {}
 
     default:
       return state

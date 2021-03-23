@@ -41,15 +41,7 @@ export const listUserReviews = (id) => async (dispatch) => {
   }
 }
 
-export const createReview = (
-  userId,
-  userName,
-  showId,
-  showImageURL,
-  showName,
-  review,
-  userRating
-) => async (dispatch, getState) => {
+export const createReview = () => async (dispatch, getState) => {
   try {
     dispatch({ type: REVIEW_CREATE_REQUEST })
 
@@ -57,32 +49,14 @@ export const createReview = (
       userLogin: { userInfo },
     } = getState()
 
-    const d = {
-      userId,
-      userName,
-      showId,
-      showImageURL,
-      showName,
-      review,
-      userRating,
-    }
-    console.log(d)
-
     const config = {
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    console.log('nhi cahala')
+    const { data } = await axios.post('/api/reviews', {}, config)
 
-    const { data } = await axios.post('/api/reviews', d, config)
-    console.log('nhi cahala')
-
-    dispatch({
-      type: REVIEW_CREATE_SUCCESS,
-      payload: data,
-    })
+    dispatch({ type: REVIEW_CREATE_SUCCESS, payload: data })
   } catch (error) {
     dispatch({ type: REVIEW_CREATE_FAIL, payload: error.response })
   }

@@ -19,6 +19,7 @@ import { listShowDetail } from '../actions/showActions'
 import { listReviews, createReview } from '../actions/reviewActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { REVIEW_CREATE_RESET } from '../constants/reviewConstants'
 
 const ShowInfoScreen = ({ match, history }) => {
   const id = match.params.id
@@ -40,11 +41,26 @@ const ShowInfoScreen = ({ match, history }) => {
     loading: loadingReviewList,
   } = reviewList
 
+  const reviewCreate = useSelector((state) => state.reviewCreate)
+  const {
+    error: errorCreate,
+    success: successCreate,
+    loading: loadingCreate,
+    review: createdReview,
+  } = reviewCreate
+
   const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(listReviews(id))
-    dispatch(listShowDetail(id))
-  }, [dispatch, id])
+    // dispatch({ type: REVIEW_CREATE_RESET })
+
+    if (successCreate) {
+      history.push(`/show-review/${createdReview._id}/edit?showId=${show._id}`)
+    } else {
+      dispatch(listReviews(id))
+      dispatch(listShowDetail(id))
+    }
+  }, [dispatch, id, history, successCreate, createdReview])
 
   const data = {
     _id: 2,
@@ -114,8 +130,8 @@ const ShowInfoScreen = ({ match, history }) => {
     ],
   }
 
-  const writeReviewHandler = (id) => {
-    history.push(`/show/${id}/review`)
+  const createReviewHandler = () => {
+    dispatch(createReview())
   }
 
   return (
@@ -235,10 +251,7 @@ const ShowInfoScreen = ({ match, history }) => {
               )}
               {!isReviewPresent && (
                 <>
-                  <Button
-                    className='rounded'
-                    onClick={() => writeReviewHandler(show._id)}
-                  >
+                  <Button className='rounded' onClick={createReviewHandler}>
                     Write your review!!
                   </Button>
                 </>

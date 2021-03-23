@@ -31,7 +31,7 @@ function App() {
             <Route path='/series' component={SeriesScreen} />
             <Route path='/animes' component={AnimeScreen} />
             <Route
-              path='/show/:id/review'
+              path='/show-review/:id/edit'
               component={ShowReviewFromUserScreen}
             />{' '}
             <Route path='/show-info/:id' component={ShowInfoScreen} />{' '}

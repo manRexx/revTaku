@@ -1,88 +1,88 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createReview } from '../actions/reviewActions'
-import { Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
+import {
+  Row,
+  Col,
+  ListGroup,
+  Form,
+  Button,
+  FormGroup,
+  FormLabel,
+  FormControl,
+} from 'react-bootstrap'
 import { listShowDetail } from '../actions/showActions'
+import Loader from '../components/Loader'
 
 const ShowReviewFromUserScreen = ({ history, match }) => {
   const id = match.params.id
+  var url_string = window.location.href
+  var url = new URL(url_string)
+  var showId = url.searchParams.get('showId')
+
+  const [showID, setShowID] = useState('')
+  const [showImageURL, setShowImageURL] = useState('')
+  const [showName, setShowName] = useState('')
+  const [userRating, setUserRating] = useState(0)
+  const [userReview, setUserReview] = useState('')
+
   const dispatch = useDispatch()
-
-  const [askReview, setAskReview] = useState('')
-  const [askRating, setAskRating] = useState(0)
-
-  const showDetail = useSelector((state) => state.showDetail)
-  const { error, loading, show } = showDetail
-
-  const reviewCreate = useSelector((state) => state.reviewCreate)
-  const { error: createError, loading: loadingCreate } = reviewCreate
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  useEffect(() => {
-    dispatch(listShowDetail(id))
-    if (loadingCreate) {
-      history.pushState(`/show-info/${id}`)
-    }
-  }, [dispatch, id])
+  const showDetail = useSelector((state) => state.showDetail)
+  const { error, loading: showLoading, show } = showDetail
 
-  const submitHandler = (e) => {
-    dispatch(createReview(show))
+  useEffect(() => {
+    dispatch(listShowDetail(showId))
+    if (!showLoading) {
+      setShowID(show._id)
+      setShowImageURL(show.image)
+      setShowName(show.originalTitle)
+    }
+  }, [dispatch, showId, showLoading])
+
+  const subitHandler = (e) => {
+    e.preventDefault()
+    console.log('submit')
   }
 
   return (
     <>
-      <div className='emptyHeight'></div>
-      <h2>
-        Write your thoughts on{' '}
-        <strong>
-          <u>{show.originalTitle}</u>
-        </strong>
-      </h2>
-      <div className='emptyHeight'></div>
-      <Row>
-        <Col>
-          <ListGroup>
-            <ListGroup.Item>
-              Writer name: <strong>{userInfo.name}</strong>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Show name: <strong>{show.originalTitle}</strong>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Rev-Taku id: <strong>{show._id}</strong>
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col>
-          <Form onSubmit={() => submitHandler(askRating, askReview)}>
-            <Form.Group controlId='rating'>
-              <Form.Label>Rating</Form.Label>
-              <Form.Control
-                as='input'
-                placeholder='Enter rating'
-                value={askRating}
-                onChange={(e) => setAskRating(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+      <h1>review id : {id}</h1>
+      <h1>show id : {showId}</h1>
+      {showLoading ? (
+        <Loader />
+      ) : (
+        <Form onSubmit={subitHandler}>
+          <FormGroup controlId='rating'>
+            <FormLabel>Rating</FormLabel>
+            <FormControl
+              type='number'
+              placeholder='Rate between 1 to 10'
+              value={userRating}
+              min={1}
+              max={10}
+              onChange={(e) => setUserRating(e.target.value)}
+            ></FormControl>
+          </FormGroup>
 
-            <Form.Group controlId='review'>
-              <Form.Label>Review</Form.Label>
-              <Form.Control
-                as='textarea'
-                rows={3}
-                placeholder='Enter review'
-                value={askReview}
-                onChange={(e) => setAskReview(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Button type='submit' variant='primary'>
-              Submit
-            </Button>
-          </Form>
-        </Col>
-      </Row>
+          <FormGroup controlId='review'>
+            <FormLabel>Review</FormLabel>
+            <FormControl
+              type='textarea'
+              row={3}
+              placeholder='......'
+              value={userReview}
+              onChange={(e) => setUserReview(e.target.value)}
+            ></FormControl>
+          </FormGroup>
+          <Button type='submit' variant='primary'>
+            Update
+          </Button>
+        </Form>
+      )}
     </>
   )
 }
