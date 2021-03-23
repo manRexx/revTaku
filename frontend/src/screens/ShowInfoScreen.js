@@ -24,11 +24,8 @@ const ShowInfoScreen = ({ match, history }) => {
   const id = match.params.id
 
   const [key, setKey] = useState('home')
-  const [askReview, setAskReview] = useState('')
-  const [askRating, setAskRating] = useState(0)
-  var isReviewPresent = false
 
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  var isReviewPresent = false
 
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading, show } = showDetail
@@ -119,19 +116,8 @@ const ShowInfoScreen = ({ match, history }) => {
     ],
   }
 
-  const reviewSubmitHandler = () => {
-    if (showData && askRating && askReview) {
-      console.log(askReview)
-      console.log(askRating)
-      console.log(showData)
-      console.log(askReview)
-      dispatch(createReview(showData, askReview, askRating))
-    }
-  }
-
-  const writeReviewHandler = () => {
-    console.log('write review')
-    // history.push(`show/${id}/review`)
+  const writeReviewHandler = (id) => {
+    history.push(`/show/${id}/review`)
   }
 
   return (
@@ -254,7 +240,10 @@ const ShowInfoScreen = ({ match, history }) => {
               {!isReviewPresent && (
                 <>
                   <h5>Form yaha</h5>
-                  <Button className='rounded' onClick={writeReviewHandler}>
+                  <Button
+                    className='rounded'
+                    onClick={() => writeReviewHandler(show._id)}
+                  >
                     Write your review!!
                   </Button>
                 </>
