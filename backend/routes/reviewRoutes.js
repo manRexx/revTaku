@@ -6,6 +6,7 @@ const router = express.Router()
 
 // router.post('/login', authUser)
 
-router.route('/').get(getReviews).post(protect, addReview)
+router.route('/').post(protect, addReview)
+router.route('/:id').get(getReviews)
 
 export default router

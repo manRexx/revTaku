@@ -2,42 +2,43 @@ import asyncHandler from 'express-async-handler'
 import Review from '../models/reviewModel.js'
 
 const addReview = asyncHandler(async (req, res) => {
-  const {
-    userId,
-    showId,
-    showImageURL,
-    showName,
-    review,
-    userRating,
-    userName,
-  } = req.body
+  console.log('AD1')
+  const d = req.body
+  console.log(d)
+  console.log('AD1')
 
-  const reviewExist = await Review.findOne({ userId: userId, showId: showId })
+  const reviewExist = await Review.findOne({
+    userId: d.userId,
+    showId: d.showId,
+  })
+  console.log('AD1')
 
   if (reviewExist) {
     res.status(400)
     throw new Error('User Review Already Exists')
   }
+  console.log('AD1')
 
   const userReview = await Review.create({
-    userId: userId,
-    showId: showId,
-    userName: userName,
-    showImageURL: showImageURL,
-    showName: showName,
-    review: review,
-    userRating: userRating,
+    userId: d.userId,
+    showId: d.showId,
+    userName: d.userName,
+    showImageURL: d.showImageURL,
+    showName: d.showName,
+    review: d.review,
+    userRating: d.userRating,
   })
+  console.log('AD1')
 
   if (userReview) {
     res.status(201).json({
-      userId: userReview.userId,
-      showId: userReview.showId,
-      showImageURL: userReview.showImageURL,
-      showName: userReview.showName,
-      review: userReview.review,
-      userRating: userReview.userRating,
-      userName: userReview.userName,
+      userId: d.userId,
+      showId: d.showId,
+      userName: d.userName,
+      showImageURL: d.showImageURL,
+      showName: d.showName,
+      review: d.review,
+      userRating: d.userRating,
     })
   } else {
     res.status(400)
@@ -46,7 +47,8 @@ const addReview = asyncHandler(async (req, res) => {
 })
 
 const getReviews = asyncHandler(async (req, res) => {
-  const reviews = await Review.find({})
+  const id = req.params.id
+  const reviews = await Review.find({ showId: id })
 
   res.json(reviews)
 })

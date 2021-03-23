@@ -35,6 +35,7 @@ function App() {
             <Route path='/admin/show/:id/edit' component={ShowEditScreen} />
           </main>
         </Container>
+        <div className='emptyHeight'></div>
         <Footer />
       </Router>
     </>

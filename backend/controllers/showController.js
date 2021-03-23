@@ -7,6 +7,7 @@ const getShows = asyncHandler(async (req, res) => {
 })
 
 const getShowById = asyncHandler(async (req, res) => {
+  console.log('show')
   const show = await Show.findById(req.params.id)
 
   if (show) {

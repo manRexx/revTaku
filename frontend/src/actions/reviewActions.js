@@ -8,10 +8,11 @@ import {
 } from '../constants/reviewConstants'
 import axios from 'axios'
 
-export const listReviews = () => async (dispatch) => {
+export const listReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: REVIEW_LIST_REQUEST })
-    const { data } = await axios.get('/api/reviews')
+
+    const { data } = await axios.get(`/api/reviews/${id}`)
 
     dispatch({
       type: REVIEW_LIST_SUCCESS,
@@ -22,7 +23,7 @@ export const listReviews = () => async (dispatch) => {
   }
 }
 
-export const createReview = (show, askReview, askRating) => async (
+export const createReview = (showData, askReview, askRating) => async (
   dispatch,
   getState
 ) => {
@@ -33,26 +34,27 @@ export const createReview = (show, askReview, askRating) => async (
       userLogin: { userInfo },
     } = getState()
 
+    const d = {
+      userId: userInfo.id,
+      userName: userInfo.name,
+      showId: showData._id,
+      showImageURL: showData.image,
+      showName: showData.originalTitle,
+      review: askReview,
+      userRating: askRating,
+    }
+    console.log(d)
+
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
+    console.log('nhi cahala')
 
-    const { data } = await axios.post(
-      '/api/reviews',
-      {
-        userId: userInfo.id,
-        userName: userInfo.name,
-        showId: show._id,
-        showImageURL: show.image,
-        showName: show.originalTitle,
-        review: askReview,
-        userRating: askRating,
-      },
-      config
-    )
+    const { data } = await axios.post('/api/reviews', d, config)
+    console.log('nhi cahala')
 
     dispatch({
       type: REVIEW_CREATE_SUCCESS,

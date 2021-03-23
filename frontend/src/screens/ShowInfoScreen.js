@@ -13,10 +13,9 @@ import {
   Card,
   Form,
   FormControl,
-  Dropdown,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { createShow, listShowDetail } from '../actions/showActions'
+import { listShowDetail } from '../actions/showActions'
 import { listReviews, createReview } from '../actions/reviewActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -27,6 +26,7 @@ const ShowInfoScreen = ({ match, history }) => {
   const [key, setKey] = useState('home')
   const [askReview, setAskReview] = useState('')
   const [askRating, setAskRating] = useState(0)
+  var isReviewPresent = false
 
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -45,11 +45,11 @@ const ShowInfoScreen = ({ match, history }) => {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(listReviews())
+    dispatch(listReviews(id))
     dispatch(listShowDetail(id))
   }, [dispatch, id])
 
-  console.log(reviewData)
+  const showData = !loading && show
 
   const data = {
     _id: 2,
@@ -120,7 +120,13 @@ const ShowInfoScreen = ({ match, history }) => {
   }
 
   const reviewSubmitHandler = () => {
-    dispatch(createShow(show, askReview, askRating))
+    if (showData && askRating && askReview) {
+      console.log(askReview)
+      console.log(askRating)
+      console.log(showData)
+      console.log(askReview)
+      dispatch(createReview(showData, askReview, askRating))
+    }
   }
 
   return (
@@ -209,93 +215,71 @@ const ShowInfoScreen = ({ match, history }) => {
             onSelect={(k) => setKey(k)}
           >
             <Tab eventKey='home' title='Your Review'>
-              {userInfo &&
-                reviewData.map((rev) =>
-                  rev.userId === userInfo.id && rev.showId === id ? (
+              <h1></h1>
+              {reviewData.length !== 0 ? (
+                <>
+                  {reviewData.map(
+                    (review) =>
+                      review.userId === userInfo.id && (
+                        <>
+                          {(isReviewPresent = true)}
+                          <Card className='m-auto'>
+                            <Card.Header>User: {review.userName}</Card.Header>
+                            <Card.Body>
+                              <Card.Title>
+                                Rating:{' '}
+                                <span>
+                                  <h3>
+                                    <strong>{review.userRating}</strong>
+                                  </h3>
+                                </span>
+                              </Card.Title>
+                              <Card.Text>{review.review}</Card.Text>
+                              <Card.Text>
+                                Created @: {review.createdAt}
+                              </Card.Text>
+                            </Card.Body>
+                          </Card>
+                          <h1></h1>
+                        </>
+                      )
+                  )}
+                  {!isReviewPresent && <h5>Form yaha</h5>}
+                </>
+              ) : (
+                <>
+                  <h5>Hurray!! Your are the first to review!!</h5>
+                  <h5>Form yaha</h5>
+                </>
+              )}
+            </Tab>
+            <Tab eventKey='profile' title='What others think'>
+              <h1></h1>
+              {reviewData.length !== 0 ? (
+                <>
+                  {reviewData.map((review) => (
                     <>
                       <Card className='m-auto'>
-                        <Card.Header>User: {rev.userName}</Card.Header>
+                        <Card.Header>User: {review.userName}</Card.Header>
                         <Card.Body>
                           <Card.Title>
                             Rating:{' '}
                             <span>
                               <h3>
-                                <strong>{rev.userRating}</strong>
+                                <strong>{review.userRating}</strong>
                               </h3>
                             </span>
                           </Card.Title>
-                          <Card.Text>{rev.review}</Card.Text>
-                          <Card.Text>Created @: {rev.createdAt}</Card.Text>
+                          <Card.Text>{review.review}</Card.Text>
+                          <Card.Text>Created @: {review.createdAt}</Card.Text>
                         </Card.Body>
                       </Card>
                       <h1></h1>
                     </>
-                  ) : (
-                    <>
-                      <h1></h1>
-                      <Form onSubmit={reviewSubmitHandler}>
-                        <Form.Label>Your Ratings</Form.Label>
-                        {/* <Form.Control as='select'>
-                            {arr.map((num) => (
-                              <option>{num}</option>
-                            ))}
-                          </Form.Control> */}
-
-                        <FormControl
-                          as='select'
-                          value={askRating}
-                          onChange={(e) => {
-                            setAskRating(e.target.value)
-                          }}
-                        >
-                          {arr.map((x) => (
-                            <option value={x}>{x}</option>
-                          ))}
-                        </FormControl>
-
-                        <Form.Group controlId='name'>
-                          <Form.Label>Enter your thoughts</Form.Label>
-                          <Form.Control
-                            as='textarea'
-                            rows={3}
-                            value={askReview}
-                            onChange={(e) => setAskReview(e.target.value)}
-                          ></Form.Control>
-                        </Form.Group>
-
-                        <Button type='submit' variant='primary'>
-                          Create Review
-                        </Button>
-                      </Form>
-                    </>
-                  )
-                )}
-            </Tab>
-            <Tab eventKey='profile' title='What others think'>
-              <h1></h1>
-              {reviewData.map((review) =>
-                review.showId === id ? (
-                  <>
-                    <Card className='m-auto'>
-                      <Card.Header>User: {review.userName}</Card.Header>
-                      <Card.Body>
-                        <Card.Title>
-                          Rating:{' '}
-                          <span>
-                            <h3>
-                              <strong>{review.userRating}</strong>
-                            </h3>
-                          </span>
-                        </Card.Title>
-                        <Card.Text>{review.review}</Card.Text>
-                        <Card.Text>Created @: {review.createdAt}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                    <h1></h1>
-                  </>
-                ) : (
-                  <h5>Hurray!! Your are the first to review!!</h5>
-                )
+                  ))}
+                </>
+              ) : (
+                <h5>Hurray!! Your are the first to review!!</h5>
               )}
             </Tab>
           </Tabs>
