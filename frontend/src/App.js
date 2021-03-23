@@ -14,6 +14,7 @@ import RegisterScreen from './screens/RegisterScreen'
 import ShowListScreen from './screens/ShowListScreen'
 import ShowEditScreen from './screens/ShowEditScreen'
 import UserProfileScreen from './screens/UserProfileScreen'
+import ShowReviewFromUserScreen from './screens/ShowReviewFromUserScreen'
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
             <Route path='/movies' component={MovieScreen} />
             <Route path='/series' component={SeriesScreen} />
             <Route path='/animes' component={AnimeScreen} />
+            <Route
+              path='/show/:id/review'
+              component={ShowReviewFromUserScreen}
+            />{' '}
             <Route path='/show-info/:id' component={ShowInfoScreen} />{' '}
             <Route path='/about' component={AboutScreen} />
             <Route path='/admin/showlist' component={ShowListScreen} />

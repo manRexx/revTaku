@@ -53,4 +53,11 @@ const getReviews = asyncHandler(async (req, res) => {
   res.json(reviews)
 })
 
-export { addReview, getReviews }
+const getUserReviews = asyncHandler(async (req, res) => {
+  const id = req.params.userId
+  const reviews = await Review.find({ userId: id })
+
+  res.json(reviews)
+})
+
+export { addReview, getReviews, getUserReviews }

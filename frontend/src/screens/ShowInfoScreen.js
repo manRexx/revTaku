@@ -129,6 +129,11 @@ const ShowInfoScreen = ({ match, history }) => {
     }
   }
 
+  const writeReviewHandler = () => {
+    console.log('write review')
+    // history.push(`show/${id}/review`)
+  }
+
   return (
     <div>
       {loadingReviewList ? (
@@ -246,7 +251,14 @@ const ShowInfoScreen = ({ match, history }) => {
                   )}
                 </>
               )}
-              {!isReviewPresent && <h5>Form yaha</h5>}
+              {!isReviewPresent && (
+                <>
+                  <h5>Form yaha</h5>
+                  <Button className='rounded' onClick={writeReviewHandler}>
+                    Write your review!!
+                  </Button>
+                </>
+              )}
             </Tab>
             <Tab eventKey='profile' title='What others think'>
               <h1></h1>
