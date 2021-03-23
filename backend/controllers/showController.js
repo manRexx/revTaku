@@ -18,7 +18,6 @@ const getShowById = asyncHandler(async (req, res) => {
 })
 
 const createShow = asyncHandler(async (req, res) => {
-  console.log('showController')
   const show = new Show({
     originalTitle: 'Sample Data',
     image: '/home/manrexx/Desktop/test.jpeg',
@@ -32,10 +31,7 @@ const createShow = asyncHandler(async (req, res) => {
     dateOfRelease: 'Sample Data',
   })
 
-  console.log('showController')
-
   const createShow = await show.save()
-  console.log('showController')
   res.status(201).json(createShow)
 })
 

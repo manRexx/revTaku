@@ -1,51 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Review from '../models/reviewModel.js'
 
-const addReview = asyncHandler(async (req, res) => {
-  console.log('AD1')
-  const d = req.body
-  console.log(d)
-  console.log('AD1')
-
-  const reviewExist = await Review.findOne({
-    userId: d.userId,
-    showId: d.showId,
-  })
-  console.log('AD1')
-
-  if (reviewExist) {
-    res.status(400)
-    throw new Error('User Review Already Exists')
-  }
-  console.log('AD1')
-
-  const userReview = await Review.create({
-    userId: d.userId,
-    showId: d.showId,
-    userName: d.userName,
-    showImageURL: d.showImageURL,
-    showName: d.showName,
-    review: d.review,
-    userRating: d.userRating,
-  })
-  console.log('AD1')
-
-  if (userReview) {
-    res.status(201).json({
-      userId: d.userId,
-      showId: d.showId,
-      userName: d.userName,
-      showImageURL: d.showImageURL,
-      showName: d.showName,
-      review: d.review,
-      userRating: d.userRating,
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid Review Data')
-  }
-})
-
 const getReviews = asyncHandler(async (req, res) => {
   const id = req.params.id
   const reviews = await Review.find({ showId: id })
@@ -60,4 +15,50 @@ const getUserReviews = asyncHandler(async (req, res) => {
   res.json(reviews)
 })
 
-export { addReview, getReviews, getUserReviews }
+const createReview = asyncHandler(async (req, res) => {
+  const review = new Review({
+    userId: req.user._id,
+    userName: req.user.name,
+    showId: 'Sample Data',
+    showImageURL: 'Sample Data',
+    showName: 'Sample Data',
+    review: 'Sample Data',
+    userRating: 0,
+  })
+  const createdReview = await review.save()
+
+  res.status(201).json(createdReview)
+})
+
+const updatedReview = asyncHandler(async (req, res) => {
+  const {
+    userId,
+    userName,
+    showId,
+    showImageURL,
+    showName,
+    review,
+    userRating,
+  } = req.body
+
+  const rev = await rev.findById(req.params.id)
+
+  if (rev) {
+    rev.userId = userId
+    rev.userName = userName
+    rev.showId = showId
+    rev.showImageURL = showImageURL
+    rev.showName = showName
+    rev.review = review
+    rev.userRating = userRating
+
+    const updatedReview = await rev.save()
+
+    res.json(updatedReview)
+  } else {
+    res.status(404)
+    throw new Error('Review not found')
+  }
+})
+
+export { createReview, getReviews, getUserReviews, updatedReview }

@@ -46,8 +46,6 @@ const ShowInfoScreen = ({ match, history }) => {
     dispatch(listShowDetail(id))
   }, [dispatch, id])
 
-  const showData = !loading && show
-
   const data = {
     _id: 2,
     originalTitle: 'Demon Slayer: Kimetsu no Yaiba the Movie: Mugen Train',
@@ -165,9 +163,7 @@ const ShowInfoScreen = ({ match, history }) => {
                   </h5>
                   <hr />
                   <h5>Available in</h5>
-                  {/* {show.language.map((lan) => (
-                <h7>{lan}</h7>
-              ))} */}
+
                   <h5>
                     <strong>NAHI CHAL RHA</strong>
                   </h5>
@@ -239,7 +235,6 @@ const ShowInfoScreen = ({ match, history }) => {
               )}
               {!isReviewPresent && (
                 <>
-                  <h5>Form yaha</h5>
                   <Button
                     className='rounded'
                     onClick={() => writeReviewHandler(show._id)}

@@ -41,10 +41,15 @@ export const listUserReviews = (id) => async (dispatch) => {
   }
 }
 
-export const createReview = (showData, askReview, askRating) => async (
-  dispatch,
-  getState
-) => {
+export const createReview = (
+  userId,
+  userName,
+  showId,
+  showImageURL,
+  showName,
+  review,
+  userRating
+) => async (dispatch, getState) => {
   try {
     dispatch({ type: REVIEW_CREATE_REQUEST })
 
@@ -53,13 +58,13 @@ export const createReview = (showData, askReview, askRating) => async (
     } = getState()
 
     const d = {
-      userId: userInfo.id,
-      userName: userInfo.name,
-      showId: showData._id,
-      showImageURL: showData.image,
-      showName: showData.originalTitle,
-      review: askReview,
-      userRating: askRating,
+      userId,
+      userName,
+      showId,
+      showImageURL,
+      showName,
+      review,
+      userRating,
     }
     console.log(d)
 

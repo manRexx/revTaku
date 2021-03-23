@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createReview } from '../actions/reviewActions'
 import { Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
+import { listShowDetail } from '../actions/showActions'
 
-const ShowReviewFromUserScreen = () => {
+const ShowReviewFromUserScreen = ({ history, match }) => {
+  const id = match.params.id
   const dispatch = useDispatch()
 
   const [askReview, setAskReview] = useState('')
@@ -12,14 +14,21 @@ const ShowReviewFromUserScreen = () => {
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading, show } = showDetail
 
+  const reviewCreate = useSelector((state) => state.reviewCreate)
+  const { error: createError, loading: loadingCreate } = reviewCreate
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  useEffect(() => {
+    dispatch(listShowDetail(id))
+    if (loadingCreate) {
+      history.pushState(`/show-info/${id}`)
+    }
+  }, [dispatch, id])
+
   const submitHandler = (e) => {
-    e.preventDefault()
-    console.log(askRating)
-    console.log(askReview)
-    // dispatch(createReview())
+    dispatch(createReview(show))
   }
 
   return (
