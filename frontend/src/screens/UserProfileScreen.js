@@ -3,6 +3,7 @@ import { Jumbotron, Row, Col, Image, Card } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUserReviews } from '../actions/reviewActions'
 import Loader from '../components/Loader'
+import { Link } from 'react-router-dom'
 
 const UserProfileScreen = () => {
   const dispatch = useDispatch()
@@ -64,7 +65,10 @@ const UserProfileScreen = () => {
           {reviews.map((review) => (
             <>
               <Card className='text-center'>
-                <Card.Header>{review.showName}</Card.Header>
+                <Link to={`/show-info/${review.showId}`}>
+                  {' '}
+                  <Card.Header>{review.showName}</Card.Header>
+                </Link>
                 <Card.Body>
                   <Card.Title>
                     Your rating:{' '}

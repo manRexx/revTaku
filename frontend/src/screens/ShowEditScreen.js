@@ -23,6 +23,8 @@ const ShowEditScreen = ({ match, history }) => {
   const [dateOfRelease, setDateOfRelease] = useState('') //DONE
   const [isAdult, setIsAdult] = useState('')
   const [language, setLanguage] = useState([])
+  const [genreString, setGenreString] = useState('')
+  var data = []
 
   const dispatch = useDispatch()
 
@@ -70,8 +72,9 @@ const ShowEditScreen = ({ match, history }) => {
     }
   }, [show, showId, dispatch, history, successUpdate])
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
+
     dispatch(
       updateShow({
         _id: showId,
@@ -124,6 +127,18 @@ const ShowEditScreen = ({ match, history }) => {
               ></Form.Control>
             </Form.Group>
 
+            {/* <Form.Group controlId='genres'>
+              <Form.Label>
+                Genres <strong>{`{write with space-sepreted}`}</strong>
+              </Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter Genres'
+                value={genreString}
+                onChange={(e) => setGenreString(e.target.value)}
+              ></Form.Control>
+            </Form.Group> */}
+
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>
               <Form.Control
@@ -136,7 +151,7 @@ const ShowEditScreen = ({ match, history }) => {
 
             <Form.Group controlId='isAdult'>
               <Form.Label>
-                <strong>isAdult</strong> {`{write true in lowercase}`}
+                isAdult<strong> {`{write true in lowercase}`}</strong>
               </Form.Label>
               <Form.Control
                 type='text'
@@ -147,7 +162,7 @@ const ShowEditScreen = ({ match, history }) => {
 
             <Form.Group controlId='isMovie'>
               <Form.Label>
-                <strong>isMovie</strong> {`{write true in lowercase}`}
+                isMovie<strong> {`{write true in lowercase}`}</strong>
               </Form.Label>
               <Form.Control
                 type='text'
@@ -158,7 +173,7 @@ const ShowEditScreen = ({ match, history }) => {
 
             <Form.Group controlId='isSeries'>
               <Form.Label>
-                <strong>isSeries</strong> {`{write true in lowercase}`}
+                isSeries<strong> {`{write true in lowercase}`}</strong>
               </Form.Label>
               <Form.Control
                 type='text'
@@ -169,7 +184,7 @@ const ShowEditScreen = ({ match, history }) => {
 
             <Form.Group controlId='isAnime'>
               <Form.Label>
-                <strong>isAnime</strong> {`{write true in lowercase}`}
+                isAnime<strong> {`{write true in lowercase}`}</strong>
               </Form.Label>
               <Form.Control
                 type='text'
