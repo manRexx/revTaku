@@ -45,7 +45,7 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: REVIEW_UPDATE_RESET })
-      history.push('/')
+      history.push(`/show-info/${showId}`)
     } else {
       dispatch(listShowDetail(showId))
       if (!showLoading) {

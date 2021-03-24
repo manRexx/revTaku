@@ -13,6 +13,8 @@ import {
   Card,
   Form,
   FormControl,
+  ListGroup,
+  Table,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listShowDetail } from '../actions/showActions'
@@ -168,33 +170,63 @@ const ShowInfoScreen = ({ match, history }) => {
                 </center>
               </div>
               <div>
-                <center>
-                  <h5>
-                    {' '}
-                    <strong>Released at: {show.dateOfRelease}</strong>
-                  </h5>
-                  <h5>
-                    {' '}
-                    <strong>Is Adult: {show.isAdult ? 'true' : 'false'}</strong>
-                  </h5>
-                  <hr />
-                  <h5>Available in</h5>
-
-                  <h5>
-                    <strong>NAHI CHAL RHA</strong>
-                  </h5>
-                </center>
+                <Table striped bordered hover rounded>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <center>Released at</center>
+                      </td>
+                      <td>
+                        <center>
+                          <strong>{show.dateOfRelease}</strong>
+                        </center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <center>Is adult</center>
+                      </td>
+                      <td>
+                        <center>
+                          <strong>{show.isAdult ? 'Yes' : 'No'}</strong>
+                        </center>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <center>Available in</center>
+                      </td>
+                      <td>
+                        <center>
+                          {show.language &&
+                            show.language.map((lan) => (
+                              <strong>{lan}&nbsp;&nbsp;</strong>
+                            ))}
+                        </center>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
               </div>
             </Col>
             <Col>
               <Jumbotron>
                 <Row className='m-auto p-3'>
-                  {data.genre.map((gen) => (
-                    <Button>{gen}</Button>
-                  ))}
-                  <h5>
-                    <strong>ERROR</strong>
-                  </h5>
+                  <h3>
+                    <strong>Overall Rating: 8</strong>
+                  </h3>
+                </Row>{' '}
+                <Row className='m-auto p-3'>
+                  <h4>
+                    <strong>Genres Tags:</strong>
+                  </h4>
+                  {show.genres &&
+                    show.genres.map((gen) => (
+                      <h4>
+                        &nbsp;
+                        <Button className='rounded'>&nbsp;{gen}&nbsp;</Button>
+                      </h4>
+                    ))}
                 </Row>
                 <Row className='m-auto p-3'>
                   <p>{show.description}</p>
@@ -239,9 +271,12 @@ const ShowInfoScreen = ({ match, history }) => {
                               </Card.Title>
                               <Card.Text>{review.review}</Card.Text>
                               <Card.Text>
-                                Created @: {review.createdAt}
+                                Written @: {review.createdAt}{' '}
                               </Card.Text>
                             </Card.Body>
+                            <Button size='sm' className='rounded'>
+                              Edit
+                            </Button>
                           </Card>
                           <h1></h1>
                         </>
