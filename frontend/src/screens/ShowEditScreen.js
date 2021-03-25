@@ -18,12 +18,10 @@ const ShowEditScreen = ({ match, history }) => {
   const [isAnime, setIsAnime] = useState('')
   const [trailerLink, setTrailerLink] = useState('') //DONE
   const [description, setDescription] = useState('') //DONE
-  const [genres, setGenres] = useState([])
   const [dateOfRelease, setDateOfRelease] = useState('') //DONE
   const [isAdult, setIsAdult] = useState('')
-  const [language, setLanguage] = useState([])
   const [genreString, setGenreString] = useState('')
-  var data = []
+  const [languageString, setLanguageString] = useState('')
 
   const dispatch = useDispatch()
 
@@ -52,7 +50,6 @@ const ShowEditScreen = ({ match, history }) => {
         setIsAnime(show.isAnime)
         setTrailerLink(show.trailerLink)
         setDescription(show.description)
-        setGenres(show.genres)
         setDateOfRelease(show.dateOfRelease)
         {
           show.isAdult === true ? setIsAdult('true') : setIsAdult('false')
@@ -66,8 +63,8 @@ const ShowEditScreen = ({ match, history }) => {
         {
           show.isAnime === true ? setIsAnime('true') : setIsAnime('false')
         }
-        setLanguage(show.language)
         setGenreString(show.genres.join(' '))
+        setLanguageString(show.language.join(' '))
       }
     }
   }, [show, showId, dispatch, history, successUpdate])
@@ -88,7 +85,7 @@ const ShowEditScreen = ({ match, history }) => {
         genres: genreString.split(' '),
         dateOfRelease,
         isAdult: isAdult === 'true' ? true : false,
-        language,
+        language: languageString.split(' '),
       })
     )
   }
@@ -136,6 +133,18 @@ const ShowEditScreen = ({ match, history }) => {
                 placeholder='Enter Genres'
                 value={genreString}
                 onChange={(e) => setGenreString(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='language'>
+              <Form.Label>
+                Languages <strong>{`{write with space-sepreted}`}</strong>
+              </Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter Languages'
+                value={languageString}
+                onChange={(e) => setLanguageString(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
