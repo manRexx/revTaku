@@ -3,6 +3,7 @@ import { Button, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 import { logout } from '../actions/userActions'
 
 const Header = ({ history }) => {
@@ -85,7 +86,9 @@ const Header = ({ history }) => {
                   </li>
                 )}
                 <li class='nav-item'>
-                  <Button onClick={logoutHandler}>Logout</Button>
+                  <Link to='/'>
+                    <Button onClick={logoutHandler}>Logout</Button>
+                  </Link>
                 </li>
               </ul>
             )}
