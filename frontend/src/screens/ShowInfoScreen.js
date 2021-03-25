@@ -64,6 +64,11 @@ const ShowInfoScreen = ({ match, history }) => {
     }
   }, [dispatch, id, history, successCreate, createdReview])
 
+  if (!loadingReviewList) {
+    show.rating = reviewData.reduce((acc, review) => acc + review.userRating, 0)
+    show.rating = show.rating / reviewData.length
+  }
+
   const data = {
     _id: 2,
     originalTitle: 'Demon Slayer: Kimetsu no Yaiba the Movie: Mugen Train',
@@ -213,7 +218,12 @@ const ShowInfoScreen = ({ match, history }) => {
               <Jumbotron>
                 <Row className='m-auto p-3'>
                   <h3>
-                    <strong>Overall Rating: 8</strong>
+                    <strong>
+                      Overall Rating:{' '}
+                      {!show.rating
+                        ? 'You are the first to rate!!'
+                        : show.rating}
+                    </strong>
                   </h3>
                 </Row>{' '}
                 <Row className='m-auto p-3'>
