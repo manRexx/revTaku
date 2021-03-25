@@ -10,7 +10,6 @@ import { listShowDetail, updateShow } from '../actions/showActions'
 
 const ShowEditScreen = ({ match, history }) => {
   const showId = match.params.id
-  console.log(showId)
 
   const [originalTitle, setOriginalTitle] = useState('') //DONE
   const [isSeries, setIsSeries] = useState('')
@@ -68,6 +67,7 @@ const ShowEditScreen = ({ match, history }) => {
           show.isAnime === true ? setIsAnime('true') : setIsAnime('false')
         }
         setLanguage(show.language)
+        setGenreString(show.genres.join(' '))
       }
     }
   }, [show, showId, dispatch, history, successUpdate])
@@ -85,7 +85,7 @@ const ShowEditScreen = ({ match, history }) => {
         isAnime: isAnime === 'true' ? true : false,
         trailerLink,
         description,
-        genres,
+        genres: genreString.split(' '),
         dateOfRelease,
         isAdult: isAdult === 'true' ? true : false,
         language,
@@ -127,7 +127,7 @@ const ShowEditScreen = ({ match, history }) => {
               ></Form.Control>
             </Form.Group>
 
-            {/* <Form.Group controlId='genres'>
+            <Form.Group controlId='genres'>
               <Form.Label>
                 Genres <strong>{`{write with space-sepreted}`}</strong>
               </Form.Label>
@@ -137,7 +137,7 @@ const ShowEditScreen = ({ match, history }) => {
                 value={genreString}
                 onChange={(e) => setGenreString(e.target.value)}
               ></Form.Control>
-            </Form.Group> */}
+            </Form.Group>
 
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>

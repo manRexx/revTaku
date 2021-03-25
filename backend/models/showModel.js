@@ -98,6 +98,14 @@ const showSchema = mongoose.Schema(
   }
 )
 
+// showSchema.pre('save', async function (next) {
+//   if (!this.isModified('genres')) {
+//     next()
+//   }
+
+//   this.genres = this.genres.split(' ')
+// })
+
 const Show = mongoose.model('Show', showSchema)
 
 export default Show

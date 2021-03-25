@@ -86,6 +86,7 @@ const updateShow = asyncHandler(async (req, res) => {
     show.isMovie = isMovie
     show.isSeries = isSeries
     show.isAnime = isAnime
+    show.genres = genres
 
     const updatedShow = await show.save()
     res.json(updatedShow)
