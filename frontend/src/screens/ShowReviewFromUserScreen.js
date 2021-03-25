@@ -42,6 +42,13 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
     success: successUpdate,
   } = reviewUpdate
 
+  const reviewList = useSelector((state) => state.reviewList)
+  const {
+    error: errorReviewList,
+    reviews: reviewData,
+    loading: loadingReviewList,
+  } = reviewList
+
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: REVIEW_UPDATE_RESET })
@@ -52,6 +59,16 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
         setShowID(show._id)
         setShowImageURL(show.image)
         setShowName(show.originalTitle)
+        var rat = reviewData.map(
+          (rev) => rev.userId === userInfo.id && rev.userRating
+        )
+        console.log('Rating' + typeof rat)
+        console.log(Number(rat))
+        setUserRating(Number(rat))
+        var revi = reviewData.map(
+          (rev) => rev.userId === userInfo.id && rev.review
+        )
+        setUserReview(revi)
       }
     }
   }, [dispatch, showId, showLoading, successUpdate])

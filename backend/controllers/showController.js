@@ -7,7 +7,6 @@ const getShows = asyncHandler(async (req, res) => {
 })
 
 const getShowById = asyncHandler(async (req, res) => {
-  console.log('show')
   const show = await Show.findById(req.params.id)
 
   if (show) {
@@ -52,29 +51,6 @@ const updateShow = asyncHandler(async (req, res) => {
   } = req.body
 
   const show = await Show.findById(req.params.id)
-
-  console.log(isAdult)
-  console.log(isMovie)
-  console.log(isSeries)
-  console.log(isAnime)
-
-  /*{if (show) {
-    show.originalTitle = originalTitle
-    show.image = image
-    show.description = description
-    show.isMovie = isMovie
-    show.isSeries = isSeries
-    show.isAnime = isAnime
-    show.noOfSeasons = noOfSeasons
-    show.trailerLink = trailerLink
-    show.genres = genres
-    show.isAdult = isAdult
-    show.language = language
-    show.dateOfRelease = dateOfRelease
-
-    const updatedShow = await show.save()
-    res.json(updatedShow)
-  }}*/
 
   if (show) {
     show.originalTitle = originalTitle
