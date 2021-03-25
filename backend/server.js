@@ -15,13 +15,23 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send('Server is running')
-})
-
 app.use('/api/shows', showRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/reviews', reviewRoutes)
+
+const __dirname = path.resolve()
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('Server is running.....')
+  })
+}
 
 app.listen(
   PORT,
