@@ -19,7 +19,7 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Alert variant='primary'>
+      <Alert variant='primary' className='rounded'>
         <Alert.Heading>
           Welcome to <strong>Rev-Taku!!</strong>
         </Alert.Heading>

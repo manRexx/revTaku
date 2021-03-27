@@ -162,7 +162,7 @@ const ShowInfoScreen = ({ match, history }) => {
                       Overall Rating:{' '}
                       {!show.rating
                         ? 'You are the first to rate!!'
-                        : show.rating}
+                        : show.rating.toFixed(2)}
                     </strong>
                   </h3>
                 </Row>{' '}
