@@ -35,3 +35,24 @@ main {
 .tab {
   margin-left: 2.5em;
 }
+
+.para {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.wrapper {
+  padding: 20px;
+  background: #eaeaea;
+  max-width: 400px;
+  /* margin: 50px auto; */
+}
+
+.demo-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
