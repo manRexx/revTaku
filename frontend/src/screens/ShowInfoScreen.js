@@ -19,12 +19,16 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { listShowDetail } from '../actions/showActions'
 import { listReviews, createReview } from '../actions/reviewActions'
+import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { REVIEW_CREATE_RESET } from '../constants/reviewConstants'
+import moment from 'moment'
 
 const ShowInfoScreen = ({ match, history }) => {
   const id = match.params.id
+
+  const m = moment()
 
   const [key, setKey] = useState('home')
 
@@ -197,7 +201,7 @@ const ShowInfoScreen = ({ match, history }) => {
           >
             <Tab eventKey='home' title='Your Review'>
               <h1></h1>
-              {reviewData.length !== 0 && (
+              {reviewData.length !== 0 && userInfo && (
                 <>
                   {reviewData.map(
                     (review) =>
@@ -211,13 +215,18 @@ const ShowInfoScreen = ({ match, history }) => {
                                 Rating:{' '}
                                 <span>
                                   <h3>
-                                    <strong>{review.userRating}</strong>
+                                    <strong>
+                                      &nbsp;&nbsp;{review.userRating}
+                                    </strong>
                                   </h3>
                                 </span>
                               </Card.Title>
                               <Card.Text>{review.review}</Card.Text>
                               <Card.Text>
-                                Written @: {review.createdAt}{' '}
+                                Written @: &nbsp;
+                                {moment(review.createdAt).format(
+                                  'Do MMMM YYYY, dddd, h:mm:ss a'
+                                )}{' '}
                               </Card.Text>
                             </Card.Body>
                             <Button
@@ -234,11 +243,20 @@ const ShowInfoScreen = ({ match, history }) => {
                   )}
                 </>
               )}
-              {!isReviewPresent && (
+              {!userInfo ? (
+                <Link to='/login'>
+                  {' '}
+                  <Button className='rounded'>Login/ Sign-up</Button>
+                </Link>
+              ) : (
                 <>
-                  <Button className='rounded' onClick={createReviewHandler}>
-                    Write your review!!
-                  </Button>
+                  {!isReviewPresent && (
+                    <>
+                      <Button className='rounded' onClick={createReviewHandler}>
+                        Write your review!!
+                      </Button>
+                    </>
+                  )}
                 </>
               )}
             </Tab>
@@ -255,12 +273,17 @@ const ShowInfoScreen = ({ match, history }) => {
                             Rating:{' '}
                             <span>
                               <h3>
-                                <strong>{review.userRating}</strong>
+                                <strong>&nbsp;&nbsp;{review.userRating}</strong>
                               </h3>
                             </span>
                           </Card.Title>
                           <Card.Text>{review.review}</Card.Text>
-                          <Card.Text>Created @: {review.createdAt}</Card.Text>
+                          <Card.Text>
+                            Created @: &nbsp;
+                            {moment(review.createdAt).format(
+                              'Do MMMM YYYY, dddd, h:mm:ss a'
+                            )}
+                          </Card.Text>
                         </Card.Body>
                       </Card>
                       <h1></h1>

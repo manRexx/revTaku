@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Row, Col, Jumbotron, Button } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Row, Col, Jumbotron, Button, Alert } from 'react-bootstrap'
 import HomeScreenCard from '../components/HomeScreenCard'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +19,13 @@ const HomeScreen = () => {
 
   return (
     <>
+      <Alert variant='primary'>
+        <Alert.Heading>
+          Welcome to <strong>Rev-Taku!!</strong>
+        </Alert.Heading>
+        <p>Place for reviewing your favourite shows, series and movies.</p>
+      </Alert>
+
       <Jumbotron className='rounded'>
         <h1>Rev-Taku</h1>
         <p>Place for reviewing your favourite shows, series and movies.</p>
