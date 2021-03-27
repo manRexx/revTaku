@@ -34,13 +34,6 @@ const HomeScreenCard = ({ show }) => {
             )}
           </center>
         </div>
-
-        {/* <Card.Text as='div'>
-          <div className='my-3'>{show.originalTitle}</div>
-        </Card.Text> */}
-        {/* <Card.Text as='h3'>
-          <p>{show.originalTitle}</p>
-        </Card.Text> */}
       </Card.Body>
     </Card>
   )
