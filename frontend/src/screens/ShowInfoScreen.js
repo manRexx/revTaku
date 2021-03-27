@@ -19,6 +19,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { listShowDetail } from '../actions/showActions'
 import { listReviews, createReview } from '../actions/reviewActions'
+import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { REVIEW_CREATE_RESET } from '../constants/reviewConstants'
@@ -200,7 +201,7 @@ const ShowInfoScreen = ({ match, history }) => {
           >
             <Tab eventKey='home' title='Your Review'>
               <h1></h1>
-              {reviewData.length !== 0 && (
+              {reviewData.length !== 0 && userInfo && (
                 <>
                   {reviewData.map(
                     (review) =>
@@ -242,11 +243,20 @@ const ShowInfoScreen = ({ match, history }) => {
                   )}
                 </>
               )}
-              {!isReviewPresent && (
+              {!userInfo ? (
+                <Link to='/login'>
+                  {' '}
+                  <Button className='rounded'>Login/ Sign-up</Button>
+                </Link>
+              ) : (
                 <>
-                  <Button className='rounded' onClick={createReviewHandler}>
-                    Write your review!!
-                  </Button>
+                  {!isReviewPresent && (
+                    <>
+                      <Button className='rounded' onClick={createReviewHandler}>
+                        Write your review!!
+                      </Button>
+                    </>
+                  )}
                 </>
               )}
             </Tab>

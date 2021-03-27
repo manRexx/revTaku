@@ -21,7 +21,7 @@ const HomeScreen = () => {
     <>
       <Alert variant='primary'>
         <Alert.Heading>
-          Welcome to <strong>Rev-Taku</strong>
+          Welcome to <strong>Rev-Taku!!</strong>
         </Alert.Heading>
         <p>Place for reviewing your favourite shows, series and movies.</p>
       </Alert>
