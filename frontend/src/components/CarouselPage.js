@@ -10,6 +10,23 @@ import {
 } from 'mdbreact'
 
 const CarouselPage = () => {
+  const data = [
+    {
+      whatIsIt: 'trending',
+      showName: 'Attack on Titan',
+      showImageURL: 'https://wallpapercave.com/wp/wp8359340.png',
+    },
+    {
+      whatIsIt: 'highestRated',
+      showName: 'Planet Earth II',
+      showImageURL: 'https://wallpapercave.com/wp/wp4729468.jpg',
+    },
+    {
+      whatIsIt: 'mostPopular',
+      showName: 'Game of Thrones',
+      showImageURL: 'https://wallpapercave.com/wp/wp4285898.jpg',
+    },
+  ]
   return (
     <MDBContainer>
       <MDBCarousel
@@ -17,49 +34,55 @@ const CarouselPage = () => {
         length={3}
         showControls={true}
         showIndicators={true}
-        className='z-depth-1'
+        className='z-depth-1 rounded h-70'
       >
         <MDBCarouselInner>
           <MDBCarouselItem itemId='1'>
             <MDBView>
               <img
                 className='d-block w-100'
-                src='https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg'
+                src={data[0].showImageURL}
                 alt='First slide'
               />
               <MDBMask overlay='black-light' />
             </MDBView>
             <MDBCarouselCaption>
-              <h3 className='h3-responsive'>Light mask</h3>
-              <p>First text</p>
+              <h1 className='h1-responsive'>
+                <strong>{data[0].showName}</strong>
+              </h1>
+              <p></p>
             </MDBCarouselCaption>
           </MDBCarouselItem>
           <MDBCarouselItem itemId='2'>
             <MDBView>
               <img
-                className='d-block w-100'
-                src='https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg'
+                className='d-block h-70 w-100'
+                src={data[1].showImageURL}
                 alt='Second slide'
               />
               <MDBMask overlay='black-strong' />
             </MDBView>
             <MDBCarouselCaption>
-              <h3 className='h3-responsive'>Strong mask</h3>
-              <p>Second text</p>
+              <h1 className='h1-responsive'>
+                <strong>{data[1].showName}</strong>
+              </h1>
+              <p></p>
             </MDBCarouselCaption>
           </MDBCarouselItem>
           <MDBCarouselItem itemId='3'>
             <MDBView>
               <img
-                className='d-block w-100'
-                src='https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg'
+                className='d-block h-70 w-100'
+                src={data[2].showImageURL}
                 alt='Third slide'
               />
               <MDBMask overlay='black-slight' />
             </MDBView>
             <MDBCarouselCaption>
-              <h3 className='h3-responsive'>Slight Mast</h3>
-              <p>Third text</p>
+              <h1 className='h1-responsive'>
+                <strong>{data[2].showName}</strong>
+              </h1>
+              <p></p>
             </MDBCarouselCaption>
           </MDBCarouselItem>
         </MDBCarouselInner>
