@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listShows } from '../actions/showActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import CarouselPage from '../components/CarouselPage'
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
@@ -25,18 +26,8 @@ const HomeScreen = () => {
         </Alert.Heading>
         <p>Place for reviewing your favourite shows, series and movies.</p>
       </Alert>
+      <CarouselPage />
 
-      <Jumbotron className='rounded'>
-        <h1>Rev-Taku</h1>
-        <p>Place for reviewing your favourite shows, series and movies.</p>
-        <p>
-          <Link to='/about'>
-            <Button variant='primary' className='rounded'>
-              Learn more
-            </Button>
-          </Link>
-        </p>
-      </Jumbotron>
       {loading ? (
         <Loader />
       ) : error ? (
