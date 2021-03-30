@@ -15,7 +15,7 @@ const CarouselPage = () => {
     {
       whatIsIt: 'trending',
       showName: 'Attack on Titan',
-      showImageURL: 'https://wallpapercave.com/wp/wp8359340.png',
+      showImageURL: 'https://wallpaperaccess.com/full/2725441.jpg',
       showId: '605430c116c06f5a0c8d8b5f',
     },
     {
@@ -52,7 +52,7 @@ const CarouselPage = () => {
                 <MDBMask overlay='black-light' />
               </MDBView>
               <MDBCarouselCaption>
-                <h1 className='h1-responsive'>
+                <h1 className='h1-responsive abc'>
                   <strong>{data[0].showName}</strong>
                 </h1>
                 <p></p>
@@ -71,7 +71,7 @@ const CarouselPage = () => {
                 <MDBMask overlay='black-strong' />
               </MDBView>
               <MDBCarouselCaption>
-                <h1 className='h1-responsive'>
+                <h1 className='h1-responsive abc'>
                   <strong>{data[1].showName}</strong>
                 </h1>
                 <p></p>
@@ -90,7 +90,7 @@ const CarouselPage = () => {
                 <MDBMask overlay='black-slight' />
               </MDBView>
               <MDBCarouselCaption>
-                <h1 className='h1-responsive'>
+                <h1 className='h1-responsive abc'>
                   <strong>{data[2].showName}</strong>
                 </h1>
                 <p></p>
