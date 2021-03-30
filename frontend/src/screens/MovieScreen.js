@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Row, Col, Jumbotron, Button } from 'react-bootstrap'
+import { Row, Col, Jumbotron, Button, Alert } from 'react-bootstrap'
 import HomeScreenCard from '../components/HomeScreenCard'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,10 +19,12 @@ const MovieScreen = () => {
 
   return (
     <>
-      <Jumbotron className='rounded'>
-        <h2>Movies</h2>
+      <Alert variant='primary' className='rounded'>
+        <Alert.Heading>
+          <strong>Movies!!</strong>
+        </Alert.Heading>
         <p>Here are the list of movies in our database!!</p>
-      </Jumbotron>
+      </Alert>
       {loading ? (
         <Loader />
       ) : error ? (
