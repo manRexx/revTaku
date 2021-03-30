@@ -56,3 +56,11 @@ main {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+.carousel-inner img {
+  max-height: 400px;
+}
+.abc {
+  color: white;
+  opacity: 1;
+  text-shadow: 2px 2px black;
+}
