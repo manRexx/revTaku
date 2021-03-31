@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormControl,
   Card,
+  Container,
 } from 'react-bootstrap'
 import { listShowDetail } from '../actions/showActions'
 import Loader from '../components/Loader'
@@ -60,19 +61,24 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
         setShowID(show._id)
         setShowImageURL(show.image)
         setShowName(show.originalTitle)
-        var rat = reviewData.map(
-          (rev) => rev.userId === userInfo.id && rev.userRating
-        )
-        console.log('Rating' + typeof rat)
-        console.log(Number(rat))
-        setUserRating(Number(rat))
-        var revi = reviewData.map(
-          (rev) => rev.userId === userInfo.id && rev.review
-        )
-        setUserReview(revi)
+      }
+      if (!loadingReviewList) {
+        if (reviewData.length === 0) {
+          setUserRating(0)
+          setUserReview('')
+        } else {
+          reviewData.map(
+            (rev) => rev.userId === userInfo.id && setUserRating(rev.userRating)
+          )
+          reviewData.map(
+            (rev) => rev.userId === userInfo.id && setUserReview(rev.review)
+          )
+        }
       }
     }
-  }, [dispatch, showId, showLoading, successUpdate])
+  }, [dispatch, showId, showLoading, successUpdate, loadingReviewList])
+
+  console.log(reviewData)
 
   const subitHandler = (e) => {
     e.preventDefault()
@@ -103,7 +109,7 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
       <div className='emptyHeight'></div>
       <Row>
         <Col>
-          <Card style={{ width: '18rem' }}>
+          <Card className='m-3' style={{ width: '18rem' }}>
             <Card.Header>
               <strong>Information</strong>
             </Card.Header>
@@ -127,36 +133,38 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
         </Col>
         <Col>
           {loadingUpdate && <Loader />}
-          {showLoading ? (
+          {showLoading && loadingReviewList ? (
             <Loader />
           ) : (
-            <Form onSubmit={subitHandler}>
-              <FormGroup controlId='rating'>
-                <FormLabel>Rating</FormLabel>
-                <FormControl
-                  type='number'
-                  placeholder='Rate between 1 to 10'
-                  value={userRating}
-                  min={1}
-                  max={10}
-                  onChange={(e) => setUserRating(e.target.value)}
-                ></FormControl>
-              </FormGroup>
+            <Container className='p-3'>
+              <Form onSubmit={subitHandler}>
+                <FormGroup controlId='rating'>
+                  <FormLabel>Rating</FormLabel>
+                  <FormControl
+                    type='number'
+                    placeholder='Rate between 1 to 10'
+                    value={userRating}
+                    min={1}
+                    max={10}
+                    onChange={(e) => setUserRating(e.target.value)}
+                  ></FormControl>
+                </FormGroup>
 
-              <FormGroup controlId='review'>
-                <FormLabel>Review</FormLabel>
-                <FormControl
-                  type='textarea'
-                  row={3}
-                  placeholder='......'
-                  value={userReview}
-                  onChange={(e) => setUserReview(e.target.value)}
-                ></FormControl>
-              </FormGroup>
-              <Button type='submit' variant='primary'>
-                Update
-              </Button>
-            </Form>
+                <FormGroup controlId='review'>
+                  <FormLabel>Review</FormLabel>
+                  <FormControl
+                    as='textarea'
+                    rows={3}
+                    placeholder='......'
+                    value={userReview}
+                    onChange={(e) => setUserReview(e.target.value)}
+                  ></FormControl>
+                </FormGroup>
+                <Button type='submit' variant='primary'>
+                  Update
+                </Button>
+              </Form>
+            </Container>
           )}
         </Col>
       </Row>
