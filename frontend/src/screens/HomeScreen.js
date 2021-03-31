@@ -13,7 +13,6 @@ const HomeScreen = () => {
 
   const showList = useSelector((state) => state.showList)
   const { error, shows, loading } = showList
-
   useEffect(() => {
     dispatch(listShows())
   }, [dispatch])
