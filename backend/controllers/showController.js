@@ -2,8 +2,10 @@ import asyncHandler from 'express-async-handler'
 import Show from '../models/showModel.js'
 
 const getShows = asyncHandler(async (req, res) => {
-  const shows = await Show.find({})
-  res.json(shows)
+  const shows = await Show.find({}, function (err, shows) {
+    res.json(shows.sort(() => Math.random() - 0.5))
+  })
+  // res.json(shows)
 })
 
 const getShowById = asyncHandler(async (req, res) => {
