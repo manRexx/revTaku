@@ -15,6 +15,7 @@ import ShowListScreen from './screens/ShowListScreen'
 import ShowEditScreen from './screens/ShowEditScreen'
 import UserProfileScreen from './screens/UserProfileScreen'
 import ShowReviewFromUserScreen from './screens/ShowReviewFromUserScreen'
+import SearchScreen from './screens/SearchScreen'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path='/about' component={AboutScreen} />
             <Route path='/admin/showlist' component={ShowListScreen} />
             <Route path='/admin/show/:id/edit' component={ShowEditScreen} />
+            <Route path='/search/:keyword' component={SearchScreen} />
           </main>
         </Container>
         <div className='emptyHeight'></div>

@@ -14,10 +14,10 @@ import {
   SHOW_UPDATE_SUCCESS,
 } from '../constants/showConstants'
 
-export const listShows = () => async (dispatch) => {
+export const listShows = (keyword = '') => async (dispatch) => {
   try {
     dispatch({ type: SHOW_LIST_REQUEST })
-    const { data } = await axios.get('/api/shows')
+    const { data } = await axios.get(`/api/shows?keyword=${keyword}`)
 
     dispatch({
       type: SHOW_LIST_SUCCESS,

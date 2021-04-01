@@ -1,10 +1,12 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import { Button, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
 import { logout } from '../actions/userActions'
+import SearchBox from './SearchBox'
 
 const Header = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
@@ -56,6 +58,11 @@ const Header = ({ history }) => {
                 <a class='nav-link' href='/about'>
                   About
                 </a>
+              </li>
+              <li class='nav-item'>
+                <Route
+                  render={({ history }) => <SearchBox history={history} />}
+                />
               </li>
             </ul>
           </div>

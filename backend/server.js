@@ -5,12 +5,17 @@ import connectDB from './config/db.js'
 import showRoutes from './routes/showRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import reviewRoutes from './routes/reviewRoutes.js'
+import morgan from 'morgan'
 
 dotenv.config()
 
 connectDB()
 
 const app = express()
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 const PORT = process.env.PORT || 5000
 

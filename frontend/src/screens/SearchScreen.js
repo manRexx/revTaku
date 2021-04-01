@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Jumbotron, Button, Alert } from 'react-bootstrap'
-import HomeScreenCard from '../components/HomeScreenCard'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listShows } from '../actions/showActions'
+import { Row, Col } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import CarouselPage from '../components/CarouselPage'
+import HomeScreenCard from '../components/HomeScreenCard'
 
-const HomeScreen = ({ match }) => {
+const SearchScreen = ({ match }) => {
   const keyword = match.params.keyword
+
   const dispatch = useDispatch()
 
   const showList = useSelector((state) => state.showList)
   const { error, shows, loading } = showList
   useEffect(() => {
     dispatch(listShows(keyword))
-  }, [dispatch])
+  }, [dispatch, keyword])
 
   return (
     <>
-      <Alert variant='primary' className='rounded'>
-        <Alert.Heading>
-          Welcome to <strong>Rev-Taku!!</strong>
-        </Alert.Heading>
-        <p>Place for reviewing your favourite shows, series and movies.</p>
-      </Alert>
-      <CarouselPage />
-
+      <h1>
+        Search results for{' '}
+        <strong>
+          <u>{keyword},</u>
+        </strong>
+      </h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message />
+      ) : shows.length === 0 ? (
+        <h3>
+          <strong>*------No Result found------*</strong>
+        </h3>
       ) : (
         <Row>
           {shows.map((show) => (
@@ -44,4 +45,5 @@ const HomeScreen = ({ match }) => {
     </>
   )
 }
-export default HomeScreen
+
+export default SearchScreen
