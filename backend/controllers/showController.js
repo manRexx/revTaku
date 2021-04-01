@@ -2,10 +2,18 @@ import asyncHandler from 'express-async-handler'
 import Show from '../models/showModel.js'
 
 const getShows = asyncHandler(async (req, res) => {
-  const shows = await Show.find({}, function (err, shows) {
+  const keyword = req.query.keyword
+    ? {
+        originalTitle: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {}
+
+  const shows = await Show.find({ ...keyword }, function (err, shows) {
     res.json(shows.sort(() => Math.random() - 0.5))
   })
-  // res.json(shows)
 })
 
 const getShowById = asyncHandler(async (req, res) => {

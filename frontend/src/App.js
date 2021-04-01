@@ -38,6 +38,7 @@ function App() {
             <Route path='/about' component={AboutScreen} />
             <Route path='/admin/showlist' component={ShowListScreen} />
             <Route path='/admin/show/:id/edit' component={ShowEditScreen} />
+            <Route path='/search/:keyword' component={HomeScreen} />
           </main>
         </Container>
         <div className='emptyHeight'></div>

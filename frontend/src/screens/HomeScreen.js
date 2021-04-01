@@ -8,13 +8,14 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import CarouselPage from '../components/CarouselPage'
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword
   const dispatch = useDispatch()
 
   const showList = useSelector((state) => state.showList)
   const { error, shows, loading } = showList
   useEffect(() => {
-    dispatch(listShows())
+    dispatch(listShows(keyword))
   }, [dispatch])
 
   return (

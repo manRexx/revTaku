@@ -14,6 +14,7 @@ import {
   Form,
   FormControl,
   ListGroup,
+  CardGroup,
   Table,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,6 +25,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { REVIEW_CREATE_RESET } from '../constants/reviewConstants'
 import moment from 'moment'
+import Recommendations from '../components/Recommendations'
 
 const ShowInfoScreen = ({ match, history }) => {
   const id = match.params.id
@@ -36,6 +38,9 @@ const ShowInfoScreen = ({ match, history }) => {
 
   const showDetail = useSelector((state) => state.showDetail)
   const { error, loading, show } = showDetail
+
+  const showList = useSelector((state) => state.showList)
+  const { error: err, loading: load, shows } = showList
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -297,6 +302,7 @@ const ShowInfoScreen = ({ match, history }) => {
           </Tabs>
         </>
       )}
+      {/* <Recommendations shows={shows} /> */}
     </div>
   )
 }
