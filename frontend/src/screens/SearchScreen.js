@@ -22,13 +22,17 @@ const SearchScreen = ({ match }) => {
       <h1>
         Search results for{' '}
         <strong>
-          <u>{keyword}</u>
+          <u>{keyword},</u>
         </strong>
       </h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message />
+      ) : shows.length === 0 ? (
+        <h3>
+          <strong>*------No Result found------*</strong>
+        </h3>
       ) : (
         <Row>
           {shows.map((show) => (
