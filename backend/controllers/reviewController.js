@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Review from '../models/reviewModel.js'
+import Show from '../models/showModel.js'
 
 const getReviews = asyncHandler(async (req, res) => {
   const id = req.params.id
@@ -43,7 +44,12 @@ const updatedReview = asyncHandler(async (req, res) => {
 
   const rev = await Review.findById(req.params.id)
 
-  if (rev) {
+  console.log('show id fetching')
+  const show = await Show.findById(showId)
+  console.log('show id fetched')
+  console.log(show)
+
+  if (rev && show) {
     rev.userId = userId
     rev.userName = userName
     rev.showId = showId
@@ -51,6 +57,14 @@ const updatedReview = asyncHandler(async (req, res) => {
     rev.showName = showName
     rev.review = review
     rev.userRating = userRating
+
+    show.reviews.push(rev)
+    show.numReviews = show.reviews.length
+    show.rating =
+      show.reviews.reduce((acc, item) => item.userRating + acc, 0) /
+      show.reviews.length
+
+    await show.save()
 
     const updatedReview = await rev.save()
 
