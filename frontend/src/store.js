@@ -7,7 +7,11 @@ import {
   showCreateReducer,
   showUpdateReducer,
 } from './reducers/showReducers'
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
+import {
+  userLoginReducer,
+  userRegisterReducer,
+  userOtherInfoReducer,
+} from './reducers/userReducers'
 import {
   reviewListReducer,
   reviewCreateReducer,
@@ -22,6 +26,7 @@ const reducer = combineReducers({
   showUpdate: showUpdateReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userOtherInfo: userOtherInfoReducer,
   reviewList: reviewListReducer,
   reviewCreate: reviewCreateReducer,
   reviewUpdate: reviewUpdateReducer,

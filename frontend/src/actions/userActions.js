@@ -4,6 +4,9 @@ import {
   USER_LOGIN_LOGOUT,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_OTHER_INFO_FAIL,
+  USER_OTHER_INFO_REQUEST,
+  USER_OTHER_INFO_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -33,6 +36,20 @@ export const login = (email, password) => async (dispatch) => {
     console.log('chal rha hai')
   } catch (error) {
     dispatch({ type: USER_LOGIN_FAIL, payload: error.response })
+  }
+}
+
+export const getOtherUserInfo = (userID) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_OTHER_INFO_REQUEST })
+    const { data } = await axios.get(`/api/users/${userID}`)
+
+    dispatch({
+      type: USER_OTHER_INFO_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({ type: USER_OTHER_INFO_FAIL, payload: error.response })
   }
 }
 
