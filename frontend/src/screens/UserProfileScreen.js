@@ -62,29 +62,32 @@ const UserProfileScreen = () => {
           </Jumbotron>
           <h1>Your Reviews</h1>
 
-          {reviews.map((review) => (
-            <>
-              <Card className='text-center'>
-                <Link to={`/show-info/${review.showId}`}>
-                  {' '}
-                  <Card.Header>{review.showName}</Card.Header>
-                </Link>
-                <Card.Body>
-                  <Card.Title>
-                    Your rating:{' '}
-                    <span>
-                      <h3>
-                        <strong>{review.userRating}</strong>
-                      </h3>
-                    </span>
-                  </Card.Title>
-                  <Card.Text>{review.review}</Card.Text>
-                  <Card.Text>Created @: {review.createdAt}</Card.Text>
-                </Card.Body>
-              </Card>
-              <h1></h1>
-            </>
-          ))}
+          {reviews.map(
+            (review) =>
+              review.showName !== 'Sample Data' && (
+                <>
+                  <Card className='text-center'>
+                    <Link to={`/show-info/${review.showId}`}>
+                      {' '}
+                      <Card.Header>{review.showName}</Card.Header>
+                    </Link>
+                    <Card.Body>
+                      <Card.Title>
+                        Your rating:{' '}
+                        <span>
+                          <h3>
+                            <strong>{review.userRating}</strong>
+                          </h3>
+                        </span>
+                      </Card.Title>
+                      <Card.Text>{review.review}</Card.Text>
+                      <Card.Text>Created @: {review.createdAt}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                  <h1></h1>
+                </>
+              )
+          )}
         </>
       )}
     </>

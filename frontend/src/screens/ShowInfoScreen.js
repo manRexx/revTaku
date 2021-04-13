@@ -272,7 +272,10 @@ const ShowInfoScreen = ({ match, history }) => {
                   {reviewData.map((review) => (
                     <>
                       <Card className='m-auto'>
-                        <Card.Header>User: {review.userName}</Card.Header>
+                        <Card.Header>
+                          User:{' '}
+                          <a href={`/u/${review.userId}`}>{review.userName}</a>
+                        </Card.Header>
                         <Card.Body>
                           <Card.Title>
                             Rating:{' '}

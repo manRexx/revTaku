@@ -44,10 +44,7 @@ const updatedReview = asyncHandler(async (req, res) => {
 
   const rev = await Review.findById(req.params.id)
 
-  console.log('show id fetching')
   const show = await Show.findById(showId)
-  console.log('show id fetched')
-  console.log(show)
 
   if (rev && show) {
     rev.userId = userId
