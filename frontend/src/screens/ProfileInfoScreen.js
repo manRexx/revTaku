@@ -8,6 +8,7 @@ import { getOtherUserInfo } from '../actions/userActions'
 
 const ProfileInfoScreen = ({ match }) => {
   const requestedUserID = match.params.userID
+  var rating = 0
 
   const dispatch = useDispatch()
 
@@ -18,9 +19,16 @@ const ProfileInfoScreen = ({ match }) => {
   const { loading, reviews: rev, error } = reviewUserList
 
   useEffect(() => {
-    dispatch(getOtherUserInfo(requestedUserID))
-    dispatch(listUserReviews(requestedUserID))
+    if (requestedUserID.length !== 0) {
+      dispatch(listUserReviews(requestedUserID))
+      dispatch(getOtherUserInfo(requestedUserID))
+    }
   }, [dispatch, requestedUserID])
+
+  if (!loading) {
+    rating = rev.reduce((acc, review) => acc + review.userRating, 0)
+    rating = rating / (rev.length - 1)
+  }
 
   return (
     <>
@@ -41,55 +49,68 @@ const ProfileInfoScreen = ({ match }) => {
           nice and tidy.
         </p>
       </Alert> */}
-      {infoLoading ? <Loader /> : <h1>{info.name}</h1>}
+
+      {infoLoading ? (
+        <Loader />
+      ) : !info ? (
+        <Loader />
+      ) : (
+        <center>
+          <h1>
+            <strong>{info.name}</strong>
+          </h1>
+          <hr />
+          <h4>
+            Average Rating:<strong> {rating} </strong>
+          </h4>
+        </center>
+      )}
 
       <div className='emptyHeight'></div>
       <Row>
         <Col xl={4}>
-          <Table striped bordered hover rounded>
-            <tbody>
-              <tr>
-                <td>
-                  <center>Released at</center>
-                </td>
-                <td>
-                  <center>
-                    <strong>{requestedUserID}</strong>
-                  </center>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <center>Released at</center>
-                </td>
-                <td>
-                  <center>
-                    <strong>{requestedUserID}</strong>
-                  </center>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <center>Released at</center>
-                </td>
-                <td>
-                  <center>
-                    <strong>{requestedUserID}</strong>
-                  </center>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <center>Released at</center>
-                </td>
-                <td>
-                  <center>
-                    <strong>{requestedUserID}</strong>
-                  </center>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+          {infoLoading ? (
+            <Loader />
+          ) : !info ? (
+            <Loader />
+          ) : (
+            <Table striped bordered hover rounded>
+              <tbody>
+                <tr>
+                  <td>
+                    <center>Rev-Taku ID</center>
+                  </td>
+                  <td>
+                    <center>
+                      <strong>{info._id}</strong>
+                    </center>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <center>E-mail</center>
+                  </td>
+                  <td>
+                    <center>
+                      <strong>{info.email}</strong>
+                    </center>
+                  </td>
+                </tr>
+                {info.isAdmin && (
+                  <tr>
+                    <td>
+                      <center>ADMIN ACCOUNT</center>
+                    </td>
+                    <td>
+                      <center>
+                        <strong>TRUE</strong>
+                      </center>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          )}
         </Col>
         <Col>
           {!loading &&
