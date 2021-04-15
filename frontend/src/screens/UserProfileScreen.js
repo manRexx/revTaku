@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 
 const UserProfileScreen = () => {
   const dispatch = useDispatch()
+  var rating = 0
+  var length = 0
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -21,6 +23,15 @@ const UserProfileScreen = () => {
     const userId = userInfo.id
     dispatch(listUserReviews(userId))
   }, [dispatch, userLogin])
+
+  if (!loading && reviews) {
+    length = reviews.reduce(
+      (acc, review) => (review.showId === 'Sample Data' ? acc + 0 : acc + 1),
+      0
+    )
+    rating = reviews.reduce((acc, review) => acc + review.userRating, 0)
+    rating = rating / length
+  }
 
   return (
     <>
@@ -60,7 +71,13 @@ const UserProfileScreen = () => {
               </Col>
             </Row>
           </Jumbotron>
-          <h1>Your Reviews</h1>
+          <center>
+            <h2>
+              Your average rating: <strong>{rating}</strong>
+            </h2>
+          </center>
+          <hr />
+          <h2>Your Reviews</h2>
 
           {reviews.map(
             (review) =>

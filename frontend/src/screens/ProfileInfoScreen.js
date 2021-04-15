@@ -28,39 +28,16 @@ const ProfileInfoScreen = ({ match }) => {
   }, [dispatch, requestedUserID])
 
   if (!loading && info) {
-    // rev.map((r) => r.showId !== 'Sample Data' && setLen(len + 1))
     length = rev.reduce(
       (acc, review) => (review.showId === 'Sample Data' ? acc + 0 : acc + 1),
       0
     )
     rating = rev.reduce((acc, review) => acc + review.userRating, 0)
-    console.log(rating)
-    console.log(length)
     rating = rating / length
-    console.log(rating)
-    console.log(rev.length)
   }
 
   return (
     <>
-      {/* <Alert variant='success'>
-        <Alert.Heading>
-          <center>
-            <b>{userInfo.name}</b>
-          </center>
-        </Alert.Heading>
-        <p>
-          Aww yeah, you successfully read this important alert message. This
-          example text is going to run a bit longer so that you can see how
-          spacing within an alert works with this kind of content.
-        </p>
-        <hr />
-        <p className='mb-0'>
-          Whenever you need to, be sure to use margin utilities to keep things
-          nice and tidy.
-        </p>
-      </Alert> */}
-
       {infoLoading ? (
         <Loader />
       ) : !info ? (
@@ -144,7 +121,6 @@ const ProfileInfoScreen = ({ match }) => {
                           </span>
                         </Card.Title>
                         <Card.Text>{review.review}</Card.Text>
-                        <Card.Text>Created @: {review.createdAt}</Card.Text>
                       </Card.Body>
                     </Card>
                     <h1></h1>
