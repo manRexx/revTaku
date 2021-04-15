@@ -86,4 +86,67 @@ const getOtherUserProfile = asyncHandler(async (req, res) => {
   console.log('ok 2')
 })
 
-export { authUser, getUserProfile, registerUser, getOtherUserProfile }
+const follow = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.body.followId,
+    {
+      $push: { followers: req.user._id },
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err })
+      }
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $push: { following: req.body.followId },
+        },
+        { new: true }
+      )
+        .then((result) => {
+          res.json(result)
+        })
+        .catch((err) => {
+          return res.status(422).json({ error: err })
+        })
+    }
+  )
+})
+
+const unFollow = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.body.unFollowId,
+    {
+      $pull: { followers: req.user._id },
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err })
+      }
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $pull: { following: req.body.unFollowId },
+        },
+        { new: true }
+      )
+        .then((result) => {
+          res.json(result)
+        })
+        .catch((err) => {
+          return res.status(422).json({ error: err })
+        })
+    }
+  )
+})
+
+export {
+  authUser,
+  getUserProfile,
+  registerUser,
+  getOtherUserProfile,
+  follow,
+  unFollow,
+}
