@@ -45,7 +45,7 @@ const ProfileInfoScreen = ({ match }) => {
       ) : (
         <center>
           <h1>
-            <strong>{info.name}</strong>
+            <strong>u/{info.name}</strong>
           </h1>
           <hr />
           <h4>
@@ -84,6 +84,26 @@ const ProfileInfoScreen = ({ match }) => {
                     </center>
                   </td>
                 </tr>
+                <tr>
+                  <td>
+                    <center>Average Rating</center>
+                  </td>
+                  <td>
+                    <center>
+                      <strong>{rating} </strong>/ show
+                    </center>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <center>Shows Reviewed</center>
+                  </td>
+                  <td>
+                    <center>
+                      <strong>{length}</strong>
+                    </center>
+                  </td>
+                </tr>
                 {info.isAdmin && (
                   <tr>
                     <td>
@@ -106,7 +126,7 @@ const ProfileInfoScreen = ({ match }) => {
               (review) =>
                 review.showName !== 'Sample Data' && (
                   <>
-                    <Card className='text-center'>
+                    <Card className='text-center rounded'>
                       <Link to={`/show-info/${review.showId}`}>
                         {' '}
                         <Card.Header>{review.showName}</Card.Header>

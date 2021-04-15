@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react'
-import { Jumbotron, Row, Col, Image, Card } from 'react-bootstrap'
+import {
+  Jumbotron,
+  Row,
+  Col,
+  Image,
+  Card,
+  Alert,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUserReviews } from '../actions/reviewActions'
 import Loader from '../components/Loader'
@@ -39,8 +48,17 @@ const UserProfileScreen = () => {
         <Loader />
       ) : (
         <>
+          {userInfo.isAdmin && (
+            <>
+              <Alert variant='primary' className='rounded'>
+                <h5>
+                  <strong>This is a Admin Account</strong>
+                </h5>
+              </Alert>
+            </>
+          )}
           <Jumbotron className='rounded'>
-            <Row className='m-auto p-3'>
+            <Row className='mx-auto p-1'>
               <Col xs={6} md={4}>
                 <center>
                   {' '}
@@ -61,13 +79,6 @@ const UserProfileScreen = () => {
                     <u>{userInfo.email}</u>
                   </strong>
                 </h3>
-                {userInfo.isAdmin && (
-                  <>
-                    <h3>
-                      <strong>This is a Admin Account</strong>
-                    </h3>
-                  </>
-                )}
               </Col>
             </Row>
           </Jumbotron>
@@ -83,7 +94,7 @@ const UserProfileScreen = () => {
             (review) =>
               review.showName !== 'Sample Data' && (
                 <>
-                  <Card className='text-center'>
+                  <Card className='text-center rounded'>
                     <Link to={`/show-info/${review.showId}`}>
                       {' '}
                       <Card.Header>{review.showName}</Card.Header>
@@ -97,8 +108,8 @@ const UserProfileScreen = () => {
                           </h3>
                         </span>
                       </Card.Title>
+
                       <Card.Text>{review.review}</Card.Text>
-                      <Card.Text>Created @: {review.createdAt}</Card.Text>
                     </Card.Body>
                   </Card>
                   <h1></h1>
