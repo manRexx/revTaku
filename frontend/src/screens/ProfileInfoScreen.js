@@ -49,7 +49,7 @@ const ProfileInfoScreen = ({ match }) => {
           </h1>
           <hr />
           <h4>
-            Average Rating:<strong> {rating} </strong>
+            Average Rating:<strong> {rating}/ show </strong>
           </h4>
         </center>
       )}
