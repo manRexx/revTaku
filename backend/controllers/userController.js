@@ -67,4 +67,23 @@ const getUserProfile = asyncHandler(async (req, res) => {
   console.log('ok 2')
 })
 
-export { authUser, getUserProfile, registerUser }
+const getOtherUserProfile = asyncHandler(async (req, res) => {
+  console.log('ok 2')
+  const user = await User.findById(req.params.userID)
+  console.log('ok 2')
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+  console.log('ok 2')
+})
+
+export { authUser, getUserProfile, registerUser, getOtherUserProfile }
