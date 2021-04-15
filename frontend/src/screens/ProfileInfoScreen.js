@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Jumbotron, Row, Col, Image, Card, Table, Alert } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUserReviews } from '../actions/reviewActions'
@@ -8,7 +8,9 @@ import { getOtherUserInfo } from '../actions/userActions'
 
 const ProfileInfoScreen = ({ match }) => {
   const requestedUserID = match.params.userID
+  const [len, setLen] = useState(0)
   var rating = 0
+  var length = 0
 
   const dispatch = useDispatch()
 
@@ -25,9 +27,18 @@ const ProfileInfoScreen = ({ match }) => {
     }
   }, [dispatch, requestedUserID])
 
-  if (!loading) {
+  if (!loading && info) {
+    // rev.map((r) => r.showId !== 'Sample Data' && setLen(len + 1))
+    length = rev.reduce(
+      (acc, review) => (review.showId === 'Sample Data' ? acc + 0 : acc + 1),
+      0
+    )
     rating = rev.reduce((acc, review) => acc + review.userRating, 0)
-    rating = rating / (rev.length - 1)
+    console.log(rating)
+    console.log(length)
+    rating = rating / length
+    console.log(rating)
+    console.log(rev.length)
   }
 
   return (
