@@ -78,8 +78,6 @@ const ShowReviewFromUserScreen = ({ history, match }) => {
     }
   }, [dispatch, showId, showLoading, successUpdate, loadingReviewList])
 
-  console.log(reviewData)
-
   const subitHandler = (e) => {
     e.preventDefault()
     dispatch(

@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Jumbotron, Row, Col, Image, Card, Table, Alert } from 'react-bootstrap'
+import {
+  Jumbotron,
+  Row,
+  Col,
+  Image,
+  Card,
+  Table,
+  Alert,
+  Button,
+} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUserReviews } from '../actions/reviewActions'
 import Loader from '../components/Loader'
@@ -16,6 +25,9 @@ const ProfileInfoScreen = ({ match }) => {
 
   const userOtherInfo = useSelector((state) => state.userOtherInfo)
   const { info, loading: infoLoading } = userOtherInfo
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   const reviewUserList = useSelector((state) => state.reviewUserList)
   const { loading, reviews: rev, error } = reviewUserList
@@ -36,8 +48,18 @@ const ProfileInfoScreen = ({ match }) => {
     rating = rating / length
   }
 
+  const unfollowHandler = (unFollowId) => {
+    //DISPATCH UNFOLLOW
+    console.log('unfollow')
+  }
+  const followHandler = (followId) => {
+    //DISPATCH FOLLOW
+    console.log('follow')
+  }
+
   return (
     <>
+      <div className='emptyHeightSmall'></div>
       {infoLoading ? (
         <Loader />
       ) : !info ? (
@@ -47,10 +69,38 @@ const ProfileInfoScreen = ({ match }) => {
           <h1>
             <strong>u/{info.name}</strong>
           </h1>
+          {userInfo &&
+            userInfo.following.map((user) =>
+              user === requestedUserID ? (
+                <Button
+                  variant='danger'
+                  className='rounded'
+                  onClick={unfollowHandler}
+                >
+                  Un-follow
+                </Button>
+              ) : (
+                <Button
+                  variant='primary'
+                  className='rounded'
+                  onClick={followHandler}
+                >
+                  Follow
+                </Button>
+              )
+            )}
           <hr />
-          <h4>
-            Average Rating:<strong> {rating}/ show </strong>
-          </h4>
+          <Row>
+            <Col>
+              Followers: <strong>{info.followers.length / 2}</strong>
+            </Col>
+            <Col>
+              Following: <strong>{info.following.length}</strong>
+            </Col>
+            <Col>
+              Average Show Rating: <strong> {rating}</strong>
+            </Col>
+          </Row>
         </center>
       )}
 
@@ -62,7 +112,7 @@ const ProfileInfoScreen = ({ match }) => {
           ) : !info ? (
             <Loader />
           ) : (
-            <Table striped bordered hover rounded>
+            <Table striped bordered hover className='rounded'>
               <tbody>
                 <tr>
                   <td>

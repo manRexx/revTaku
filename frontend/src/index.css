@@ -6,6 +6,10 @@ main {
   height: 4.6rem;
 }
 
+.emptyHeightSmall {
+  height: 1.6rem;
+}
+
 .banner {
   color: white;
   object-fit: contain;

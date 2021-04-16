@@ -13,6 +13,8 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      followers: user.followers,
+      following: user.following,
     })
   } else {
     res.status(401)
@@ -68,9 +70,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 })
 
 const getOtherUserProfile = asyncHandler(async (req, res) => {
-  console.log('ok 2')
   const user = await User.findById(req.params.userID)
-  console.log('ok 2')
 
   if (user) {
     res.json({
@@ -78,6 +78,8 @@ const getOtherUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      followers: user.followers,
+      following: user.following,
     })
   } else {
     res.status(404)
