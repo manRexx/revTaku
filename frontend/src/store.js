@@ -13,6 +13,7 @@ import {
   userOtherInfoReducer,
   userFollowReducer,
   userUnFollowReducer,
+  userCurrentInfoReducer,
 } from './reducers/userReducers'
 import {
   reviewListReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   userOtherInfo: userOtherInfoReducer,
   userFollow: userFollowReducer,
   userUnFollow: userUnFollowReducer,
+  userCurrentInfo: userCurrentInfoReducer,
   reviewList: reviewListReducer,
   reviewCreate: reviewCreateReducer,
   reviewUpdate: reviewUpdateReducer,

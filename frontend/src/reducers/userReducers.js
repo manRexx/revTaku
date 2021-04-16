@@ -15,6 +15,9 @@ import {
   USER_UNFOLLOW_SUCCESS,
   USER_UNFOLLOW_FAIL,
   USER_UNFOLLOW_REQUEST,
+  USER_CURRENT_SUCCESS,
+  USER_CURRENT_FAIL,
+  USER_CURRENT_REQUEST,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -40,6 +43,20 @@ export const userOtherInfoReducer = (state = {}, action) => {
     case USER_OTHER_INFO_FAIL:
       return { loading: false, error: action.payload }
     case USER_OTHER_INFO_REQUEST:
+      return { loading: true }
+
+    default:
+      return state
+  }
+}
+
+export const userCurrentInfoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_CURRENT_SUCCESS:
+      return { loading: false, info: action.payload }
+    case USER_CURRENT_FAIL:
+      return { loading: false, error: action.payload }
+    case USER_CURRENT_REQUEST:
       return { loading: true }
 
     default:

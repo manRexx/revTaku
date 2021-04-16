@@ -14,7 +14,7 @@ import { listUserReviews } from '../actions/reviewActions'
 import { follow } from '../actions/userActions'
 import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
-import { getOtherUserInfo } from '../actions/userActions'
+import { getOtherUserInfo, getCurrentUserInfo } from '../actions/userActions'
 
 const ProfileInfoScreen = ({ match }) => {
   const requestedUserID = match.params.userID
@@ -30,6 +30,9 @@ const ProfileInfoScreen = ({ match }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const userCurrentInfo = useSelector((state) => state.userCurrentInfo)
+  const { loading: load, info: INFO, error: err } = userCurrentInfo
+
   const userFollow = useSelector((state) => state.userFollow)
   const { success: followSuccess } = userFollow
 
@@ -40,9 +43,11 @@ const ProfileInfoScreen = ({ match }) => {
     if (requestedUserID.length !== 0) {
       dispatch(listUserReviews(requestedUserID))
       dispatch(getOtherUserInfo(requestedUserID))
+      dispatch(getCurrentUserInfo())
     }
     if (followSuccess) {
       dispatch(getOtherUserInfo(requestedUserID))
+      dispatch(getCurrentUserInfo())
     }
   }, [dispatch, requestedUserID, followSuccess])
 

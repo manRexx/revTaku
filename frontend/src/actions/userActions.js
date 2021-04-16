@@ -1,5 +1,8 @@
 import axios from 'axios'
 import {
+  USER_CURRENT_FAIL,
+  USER_CURRENT_REQUEST,
+  USER_CURRENT_SUCCESS,
   USER_FOLLOW_FAIL,
   USER_FOLLOW_REQUEST,
   USER_FOLLOW_SUCCESS,
@@ -49,6 +52,32 @@ export const getOtherUserInfo = (userID) => async (dispatch) => {
     })
   } catch (error) {
     dispatch({ type: USER_OTHER_INFO_FAIL, payload: error.response })
+  }
+}
+
+export const getCurrentUserInfo = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_CURRENT_REQUEST })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/users/profile`, config)
+    console.log(data)
+
+    dispatch({
+      type: USER_CURRENT_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({ type: USER_CURRENT_FAIL, payload: error.response })
   }
 }
 
