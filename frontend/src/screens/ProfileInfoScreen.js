@@ -87,16 +87,27 @@ const ProfileInfoScreen = ({ match }) => {
             <strong>u/{info.name}</strong>
           </h1>
 
-          <Button
-            variant='danger'
-            className='rounded'
-            onClick={unfollowHandler}
-          >
-            Un-follow
-          </Button>
-          <Button variant='primary' className='rounded' onClick={followHandler}>
-            Follow
-          </Button>
+          {!load &&
+          INFO &&
+          info._id !== requestedUserID &&
+          INFO.following.find((value) => value === requestedUserID) ? (
+            <Button
+              variant='danger'
+              className='rounded'
+              onClick={unfollowHandler}
+            >
+              Un-follow
+            </Button>
+          ) : (
+            <Button
+              variant='primary'
+              className='rounded'
+              onClick={followHandler}
+            >
+              Follow
+            </Button>
+          )}
+
           <hr />
           <Row>
             <Col>
