@@ -1,5 +1,8 @@
 import axios from 'axios'
 import {
+  USER_FOLLOW_FAIL,
+  USER_FOLLOW_REQUEST,
+  USER_FOLLOW_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_LOGOUT,
   USER_LOGIN_REQUEST,
@@ -79,5 +82,28 @@ export const logout = () => async (dispatch) => {
     dispatch({ type: USER_LOGIN_LOGOUT })
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const follow = (followId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_FOLLOW_REQUEST })
+    console.log(followId)
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.put(`/api/users/follow/`, { followId }, config)
+
+    dispatch({ type: USER_FOLLOW_SUCCESS, success: true })
+  } catch (error) {
+    dispatch({ type: USER_FOLLOW_FAIL, payload: error.response })
   }
 }

@@ -9,6 +9,12 @@ import {
   USER_OTHER_INFO_FAIL,
   USER_OTHER_INFO_REQUEST,
   USER_OTHER_INFO_SUCCESS,
+  USER_FOLLOW_SUCCESS,
+  USER_FOLLOW_FAIL,
+  USER_FOLLOW_REQUEST,
+  USER_UNFOLLOW_SUCCESS,
+  USER_UNFOLLOW_FAIL,
+  USER_UNFOLLOW_REQUEST,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -48,6 +54,34 @@ export const userRegisterReducer = (state = {}, action) => {
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload }
     case USER_REGISTER_REQUEST:
+      return { loading: true }
+
+    default:
+      return state
+  }
+}
+
+export const userFollowReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_FOLLOW_SUCCESS:
+      return { loading: false, success: true }
+    case USER_FOLLOW_FAIL:
+      return { loading: false, error: action.payload }
+    case USER_FOLLOW_REQUEST:
+      return { loading: true }
+
+    default:
+      return state
+  }
+}
+
+export const userUnFollowReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UNFOLLOW_SUCCESS:
+      return { loading: false, success: true }
+    case USER_UNFOLLOW_FAIL:
+      return { loading: false, error: action.payload }
+    case USER_UNFOLLOW_REQUEST:
       return { loading: true }
 
     default:

@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUserReviews } from '../actions/reviewActions'
+import { follow } from '../actions/userActions'
 import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import { getOtherUserInfo } from '../actions/userActions'
@@ -29,6 +30,9 @@ const ProfileInfoScreen = ({ match }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const userFollow = useSelector((state) => state.userFollow)
+  const { success: followSuccess } = userFollow
+
   const reviewUserList = useSelector((state) => state.reviewUserList)
   const { loading, reviews: rev, error } = reviewUserList
 
@@ -37,7 +41,10 @@ const ProfileInfoScreen = ({ match }) => {
       dispatch(listUserReviews(requestedUserID))
       dispatch(getOtherUserInfo(requestedUserID))
     }
-  }, [dispatch, requestedUserID])
+    if (followSuccess) {
+      dispatch(getOtherUserInfo(requestedUserID))
+    }
+  }, [dispatch, requestedUserID, followSuccess])
 
   if (!loading && info) {
     length = rev.reduce(
@@ -51,10 +58,12 @@ const ProfileInfoScreen = ({ match }) => {
   const unfollowHandler = (unFollowId) => {
     //DISPATCH UNFOLLOW
     console.log('unfollow')
+    console.log(requestedUserID)
   }
   const followHandler = (followId) => {
     //DISPATCH FOLLOW
     console.log('follow')
+    dispatch(follow(requestedUserID))
   }
 
   return (
@@ -70,6 +79,7 @@ const ProfileInfoScreen = ({ match }) => {
             <strong>u/{info.name}</strong>
           </h1>
           {userInfo &&
+            userInfo.id !== requestedUserID &&
             userInfo.following.map((user) =>
               user === requestedUserID ? (
                 <Button
