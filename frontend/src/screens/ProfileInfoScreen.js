@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listUserReviews } from '../actions/reviewActions'
-import { follow } from '../actions/userActions'
+import { follow, unFollow } from '../actions/userActions'
 import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import { getOtherUserInfo, getCurrentUserInfo } from '../actions/userActions'
@@ -36,6 +36,9 @@ const ProfileInfoScreen = ({ match }) => {
   const userFollow = useSelector((state) => state.userFollow)
   const { success: followSuccess } = userFollow
 
+  const userUnFollow = useSelector((state) => state.userUnFollow)
+  const { success: unFollowSuccess } = userUnFollow
+
   const reviewUserList = useSelector((state) => state.reviewUserList)
   const { loading, reviews: rev, error } = reviewUserList
 
@@ -45,11 +48,11 @@ const ProfileInfoScreen = ({ match }) => {
       dispatch(getOtherUserInfo(requestedUserID))
       dispatch(getCurrentUserInfo())
     }
-    if (followSuccess) {
+    if (followSuccess && unFollowSuccess) {
       dispatch(getOtherUserInfo(requestedUserID))
       dispatch(getCurrentUserInfo())
     }
-  }, [dispatch, requestedUserID, followSuccess])
+  }, [dispatch, requestedUserID, followSuccess, unFollowSuccess])
 
   if (!loading && info) {
     length = rev.reduce(
@@ -63,7 +66,7 @@ const ProfileInfoScreen = ({ match }) => {
   const unfollowHandler = (unFollowId) => {
     //DISPATCH UNFOLLOW
     console.log('unfollow')
-    console.log(requestedUserID)
+    dispatch(unFollow(requestedUserID))
   }
   const followHandler = (followId) => {
     //DISPATCH FOLLOW
@@ -83,27 +86,17 @@ const ProfileInfoScreen = ({ match }) => {
           <h1>
             <strong>u/{info.name}</strong>
           </h1>
-          {userInfo &&
-            userInfo.id !== requestedUserID &&
-            userInfo.following.map((user) =>
-              user === requestedUserID ? (
-                <Button
-                  variant='danger'
-                  className='rounded'
-                  onClick={unfollowHandler}
-                >
-                  Un-follow
-                </Button>
-              ) : (
-                <Button
-                  variant='primary'
-                  className='rounded'
-                  onClick={followHandler}
-                >
-                  Follow
-                </Button>
-              )
-            )}
+
+          <Button
+            variant='danger'
+            className='rounded'
+            onClick={unfollowHandler}
+          >
+            Un-follow
+          </Button>
+          <Button variant='primary' className='rounded' onClick={followHandler}>
+            Follow
+          </Button>
           <hr />
           <Row>
             <Col>

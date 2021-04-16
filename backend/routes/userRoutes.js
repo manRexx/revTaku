@@ -16,6 +16,6 @@ router.route('/profile').get(protect, getUserProfile)
 router.route('/').post(registerUser)
 router.route('/:userID').get(getOtherUserProfile)
 router.route('/follow').put(protect, follow)
-router.route('/un-follow').put(protect, unFollow)
+router.route('/unfollow').put(protect, unFollow)
 
 export default router

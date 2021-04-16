@@ -16,6 +16,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UNFOLLOW_FAIL,
+  USER_UNFOLLOW_REQUEST,
+  USER_UNFOLLOW_SUCCESS,
 } from '../constants/userConstants'
 
 export const login = (email, password) => async (dispatch) => {
@@ -134,5 +137,32 @@ export const follow = (followId) => async (dispatch, getState) => {
     dispatch({ type: USER_FOLLOW_SUCCESS, success: true })
   } catch (error) {
     dispatch({ type: USER_FOLLOW_FAIL, payload: error.response })
+  }
+}
+
+export const unFollow = (unFollowId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_UNFOLLOW_REQUEST })
+    console.log(unFollowId)
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.put(
+      `/api/users/unfollow/`,
+      { unFollowId },
+      config
+    )
+
+    dispatch({ type: USER_UNFOLLOW_SUCCESS, success: true })
+  } catch (error) {
+    dispatch({ type: USER_UNFOLLOW_FAIL, payload: error.response })
   }
 }
