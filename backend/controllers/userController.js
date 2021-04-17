@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
+import Review from '../models/reviewModel.js'
 import generateToken from '../utils/generateTokens.js'
 
 const authUser = asyncHandler(async (req, res) => {
@@ -13,6 +14,8 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      followers: user.followers,
+      following: user.following,
     })
   } else {
     res.status(401)
@@ -49,9 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  console.log('ok 2')
   const user = await User.findById(req.user._id)
-  console.log('ok 2')
 
   if (user) {
     res.json({
@@ -59,18 +60,17 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      followers: user.followers,
+      following: user.following,
     })
   } else {
     res.status(404)
     throw new Error('User not found')
   }
-  console.log('ok 2')
 })
 
 const getOtherUserProfile = asyncHandler(async (req, res) => {
-  console.log('ok 2')
   const user = await User.findById(req.params.userID)
-  console.log('ok 2')
 
   if (user) {
     res.json({
@@ -78,12 +78,89 @@ const getOtherUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      followers: user.followers,
+      following: user.following,
     })
   } else {
     res.status(404)
     throw new Error('User not found')
   }
-  console.log('ok 2')
 })
 
-export { authUser, getUserProfile, registerUser, getOtherUserProfile }
+const follow = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.body.followId,
+    {
+      $push: { followers: req.user._id },
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err })
+      }
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $push: { following: req.body.followId },
+        },
+        { new: true }
+      )
+        .then((result) => {
+          res.json(result)
+        })
+        .catch((err) => {
+          return res.status(422).json({ error: err })
+        })
+    }
+  )
+})
+
+const unFollow = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.body.unFollowId,
+    {
+      $pull: { followers: req.user._id },
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err })
+      }
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $pull: { following: req.body.unFollowId },
+        },
+        { new: true }
+      )
+        .then((result) => {
+          res.json(result)
+        })
+        .catch((err) => {
+          return res.status(422).json({ error: err })
+        })
+    }
+  )
+})
+
+const notification = asyncHandler(async (req, res) => {
+  const u = await User.findById(req.user._id)
+  const reviews = await Review.find({ userId: { $in: u.following } })
+
+  if (reviews) {
+    res.json(reviews.reverse())
+  } else {
+    res.status(404)
+    throw new Error('Notification not found')
+  }
+})
+
+export {
+  authUser,
+  getUserProfile,
+  registerUser,
+  getOtherUserProfile,
+  follow,
+  unFollow,
+  notification,
+}

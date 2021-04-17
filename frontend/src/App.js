@@ -17,6 +17,7 @@ import UserProfileScreen from './screens/UserProfileScreen'
 import ShowReviewFromUserScreen from './screens/ShowReviewFromUserScreen'
 import SearchScreen from './screens/SearchScreen'
 import ProfileInfoScreen from './screens/ProfileInfoScreen'
+import Feed from './screens/Feed'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path='/login' component={LoginScreen} />
             <Route path='/profile' component={UserProfileScreen} />
             <Route path='/register' component={RegisterScreen} />
+            <Route path='/user/feeds' component={Feed} />
             <Route path='/movies' component={MovieScreen} />
             <Route path='/series' component={SeriesScreen} />
             <Route path='/animes' component={AnimeScreen} />

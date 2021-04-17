@@ -38,6 +38,19 @@ const Header = ({ history }) => {
 
           <div class='collapse navbar-collapse' id='navbarColor01'>
             <ul class='navbar-nav mr-auto'>
+              {userInfo && (
+                <li class='nav-item'>
+                  <a class='nav-link' href='/user/feeds'>
+                    <strong>
+                      Feeds {'  '}
+                      <i class='fas fa-bell'></i>
+                    </strong>
+
+                    <span class='sr-only'>(current)</span>
+                  </a>
+                </li>
+              )}
+
               <li class='nav-item'>
                 <a class='nav-link' href='/movies'>
                   Movies
@@ -54,6 +67,7 @@ const Header = ({ history }) => {
                   Anime
                 </a>
               </li>
+
               <li class='nav-item'>
                 <a class='nav-link' href='/about'>
                   About
