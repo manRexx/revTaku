@@ -18,6 +18,9 @@ import {
   USER_CURRENT_SUCCESS,
   USER_CURRENT_FAIL,
   USER_CURRENT_REQUEST,
+  USER_FEED_SUCCESS,
+  USER_FEED_FAIL,
+  USER_FEED_REQUEST,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -99,6 +102,20 @@ export const userUnFollowReducer = (state = {}, action) => {
     case USER_UNFOLLOW_FAIL:
       return { loading: false, error: action.payload }
     case USER_UNFOLLOW_REQUEST:
+      return { loading: true }
+
+    default:
+      return state
+  }
+}
+
+export const userFeedReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_FEED_SUCCESS:
+      return { loading: false, feed: action.payload }
+    case USER_FEED_FAIL:
+      return { loading: false, error: action.payload }
+    case USER_FEED_REQUEST:
       return { loading: true }
 
     default:

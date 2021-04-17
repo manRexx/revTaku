@@ -52,9 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  console.log('ok 2')
   const user = await User.findById(req.user._id)
-  console.log('ok 2')
 
   if (user) {
     res.json({
@@ -69,7 +67,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
-  console.log('ok 2')
 })
 
 const getOtherUserProfile = asyncHandler(async (req, res) => {

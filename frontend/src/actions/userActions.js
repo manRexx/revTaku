@@ -3,6 +3,9 @@ import {
   USER_CURRENT_FAIL,
   USER_CURRENT_REQUEST,
   USER_CURRENT_SUCCESS,
+  USER_FEED_FAIL,
+  USER_FEED_REQUEST,
+  USER_FEED_SUCCESS,
   USER_FOLLOW_FAIL,
   USER_FOLLOW_REQUEST,
   USER_FOLLOW_SUCCESS,
@@ -164,5 +167,27 @@ export const unFollow = (unFollowId) => async (dispatch, getState) => {
     dispatch({ type: USER_UNFOLLOW_SUCCESS, success: true })
   } catch (error) {
     dispatch({ type: USER_UNFOLLOW_FAIL, payload: error.response })
+  }
+}
+
+export const feed = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_FEED_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/users/notification/`, {}, config)
+
+    dispatch({ type: USER_FEED_SUCCESS, success: true })
+  } catch (error) {
+    dispatch({ type: USER_FEED_FAIL, payload: error.response })
   }
 }

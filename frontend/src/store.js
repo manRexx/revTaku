@@ -14,6 +14,7 @@ import {
   userFollowReducer,
   userUnFollowReducer,
   userCurrentInfoReducer,
+  userFeedReducer,
 } from './reducers/userReducers'
 import {
   reviewListReducer,
@@ -28,6 +29,7 @@ const reducer = combineReducers({
   showCreate: showCreateReducer,
   showUpdate: showUpdateReducer,
   userLogin: userLoginReducer,
+  userFeed: userFeedReducer,
   userRegister: userRegisterReducer,
   userOtherInfo: userOtherInfoReducer,
   userFollow: userFollowReducer,
