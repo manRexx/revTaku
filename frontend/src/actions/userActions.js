@@ -184,9 +184,9 @@ export const feed = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    const { data } = await axios.get(`/api/users/notification/`, {}, config)
+    const { data } = await axios.get(`/api/users/notification/`, config)
 
-    dispatch({ type: USER_FEED_SUCCESS, success: true })
+    dispatch({ type: USER_FEED_SUCCESS, payload: data })
   } catch (error) {
     dispatch({ type: USER_FEED_FAIL, payload: error.response })
   }

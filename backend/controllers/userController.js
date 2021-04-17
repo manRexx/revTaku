@@ -148,7 +148,7 @@ const notification = asyncHandler(async (req, res) => {
   const reviews = await Review.find({ userId: { $in: u.following } })
 
   if (reviews) {
-    res.json(reviews)
+    res.json(reviews.reverse())
   } else {
     res.status(404)
     throw new Error('Notification not found')
