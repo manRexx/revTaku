@@ -89,7 +89,6 @@ const ProfileInfoScreen = ({ match }) => {
 
           {!load &&
           INFO &&
-          info._id !== requestedUserID &&
           INFO.following.find((value) => value === requestedUserID) ? (
             <Button
               variant='danger'

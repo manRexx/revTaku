@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
+import Review from '../models/reviewModel.js'
 import generateToken from '../utils/generateTokens.js'
 
 const authUser = asyncHandler(async (req, res) => {
@@ -87,7 +88,6 @@ const getOtherUserProfile = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
-  console.log('ok 2')
 })
 
 const follow = asyncHandler(async (req, res) => {
@@ -146,6 +146,18 @@ const unFollow = asyncHandler(async (req, res) => {
   )
 })
 
+const notification = asyncHandler(async (req, res) => {
+  const u = await User.findById(req.user._id)
+  const reviews = await Review.find({ userId: { $in: u.following } })
+
+  if (reviews) {
+    res.json(reviews)
+  } else {
+    res.status(404)
+    throw new Error('Notification not found')
+  }
+})
+
 export {
   authUser,
   getUserProfile,
@@ -153,4 +165,5 @@ export {
   getOtherUserProfile,
   follow,
   unFollow,
+  notification,
 }
