@@ -83,4 +83,10 @@ const updateShow = asyncHandler(async (req, res) => {
   }
 })
 
-export { getShows, getShowById, createShow, updateShow }
+const showContribute = asyncHandler(async (req, res) => {
+  const data = req.body.showName
+
+  res.json(data)
+})
+
+export { getShows, getShowById, createShow, updateShow, showContribute }
