@@ -84,7 +84,9 @@ const updateShow = asyncHandler(async (req, res) => {
 })
 
 const showContribute = asyncHandler(async (req, res) => {
-  const data = req.body.showName
+  const data = req.body
+
+  console.log(data)
 
   res.json(data)
 })
