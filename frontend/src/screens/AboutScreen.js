@@ -1,32 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Alert, Card, Form, Col, Button } from 'react-bootstrap'
+import { Alert, Card, Form, Col, Button, Container } from 'react-bootstrap'
 
 const AboutScreen = () => {
-  const [trailer, setTrailer] = useState('')
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [DOR, setDOR] = useState('')
-
-  const submitHandler = async (e) => {
-    e.preventDefault()
-    console.log(trailer)
-    console.log(title)
-    console.log(description)
-    console.log(DOR)
-
-    await axios.post('/api/shows/show', {
-      trailer: trailer,
-      title: title,
-      description: description,
-      DOR: DOR,
-    })
-
-    setTrailer('')
-    setTitle('')
-    setDescription('')
-    setDOR('')
-  }
   return (
     <>
       <Alert variant='success' className='rounded'>
@@ -69,56 +45,17 @@ const AboutScreen = () => {
           </Card.Text>
         </Card.Body>
       </Card>
+
       <div className='emptyHeightSmall'></div>
-      <Card className='p-3 rounded'>
-        <Form className='m-3 p-3' onSubmit={submitHandler}>
-          <Form.Row>
-            <Form.Group as={Col}>
-              <Form.Label>Original Title</Form.Label>
-              <Form.Control
-                placeholder='Enter Title'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </Form.Group>
-          </Form.Row>
-          <Form.Row>
-            <Form.Group as={Col}>
-              <Form.Label>
-                Trailer Link&nbsp;&nbsp; {`{provide first trailer link}`}
-              </Form.Label>
-              <Form.Control
-                placeholder='Trailer Link'
-                value={trailer}
-                onChange={(e) => setTrailer(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} controlId='formGridCity'>
-              <Form.Label>Date of Release</Form.Label>
-              <Form.Control
-                value={DOR}
-                onChange={(e) => setDOR(e.target.value)}
-                placeholder='Date of Release'
-              />
-            </Form.Group>
-          </Form.Row>
 
-          <Form.Group controlId='formGridAddress1'>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as='textarea'
-              rows={3}
-              placeholder='...'
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Form.Group>
-
-          <Button variant='primary' type='submit' className='rounded'>
-            Submit
-          </Button>
-        </Form>
-      </Card>
+      <div className='containerForm'>
+        <iframe
+          class='responsive-iframe'
+          src='https://docs.google.com/forms/d/e/1FAIpQLSfmZ7F-AkOQ6slFZ6SrXZBICvr2wHcV0LfzTOPSEkyRRdTrrg/viewform?embedded=true'
+        >
+          Loading...
+        </iframe>
+      </div>
     </>
   )
 }
