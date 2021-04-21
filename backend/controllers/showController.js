@@ -82,5 +82,4 @@ const updateShow = asyncHandler(async (req, res) => {
     throw new Error('Show not fournd')
   }
 })
-
 export { getShows, getShowById, createShow, updateShow }
