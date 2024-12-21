@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { Row, Col, Jumbotron, Button, Alert } from 'react-bootstrap'
-import HomeScreenCard from '../components/HomeScreenCard'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { listShows } from '../actions/showActions'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import CarouselPage from '../components/CarouselPage'
+import React, { useEffect, useState } from "react";
+import { Row, Col, Jumbotron, Button, Alert } from "react-bootstrap";
+import HomeScreenCard from "../components/HomeScreenCard";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { listShows } from "../actions/showActions";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import CarouselPage from "../components/CarouselPage";
 
 const HomeScreen = ({ match }) => {
-  const keyword = match.params.keyword
-  const dispatch = useDispatch()
+  const keyword = match.params.keyword;
+  const dispatch = useDispatch();
 
-  const showList = useSelector((state) => state.showList)
-  const { error, shows, loading } = showList
+  const showList = useSelector((state) => state.showList);
+  const { error, shows, loading } = showList;
   useEffect(() => {
-    dispatch(listShows(keyword))
-  }, [dispatch])
+    dispatch(listShows(keyword));
+  }, [dispatch]);
 
   return (
     <>
-      <Alert variant='primary' className='rounded'>
+      <Alert variant="primary" className="rounded">
         <Alert.Heading>
           Welcome to <strong>Rev-Taku!!</strong>
         </Alert.Heading>
@@ -42,6 +42,6 @@ const HomeScreen = ({ match }) => {
         </Row>
       )}
     </>
-  )
-}
-export default HomeScreen
+  );
+};
+export default HomeScreen;
