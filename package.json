@@ -4,9 +4,6 @@
   "description": "Review App",
   "main": "index.js",
   "type": "module",
-  "engines": {
-    "node": "14.9.0"
-  },
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
